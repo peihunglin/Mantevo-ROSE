@@ -17,6 +17,6 @@ The original Mantevo includes:
 1. CleverLeaf: Version 1.0, Reference Version 1.0
 2. EpetraBenchmarkTest: Version 1.0
 
-## ROSE successfuly compiles the following:
+## ROSE successfully compiles the following:
 1. CoMD (with modified Makefile)
 2. MiniFE (with modified Makefile)

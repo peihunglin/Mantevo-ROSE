@@ -20,6 +20,7 @@ OBJ =	$(SRC:.cpp=.o)
 help:
 	@echo 'Type "make target {Options}" where target is one of:'
 	@echo '      openmpi     (using OpenMPI)'
+	@echo '      rose        (using OpenMPI and ROSE)'
 	@echo '      intel       (using intelMPI)'
 	@echo '      cray        (using CrayCompiler for CPUs)'
 	@echo '      cray_intel  (using Cray Wrapper for Intel compiler for CPUs)'
@@ -41,6 +42,14 @@ help:
 	@echo '      make intel -j 32 KNC=yes ANSI_ALIAS=yes SIMD=no'
 
 # Targets
+
+rose:
+	@if [ ! -d Obj_$@ ]; then mkdir Obj_$@; fi
+	@cp -p $(SRC) $(INC) Obj_$@
+	@cp Makefile.$@ Obj_$@/Makefile
+	@cd Obj_$@; \
+	$(MAKE)  "OBJ = $(OBJ)" "INC = $(INC)" "EXE = ../$(EXE)" ../$(EXE)
+#	@if [ -d Obj_$@ ]; then cd Obj_$@; rm $(SRC) $(INC) Makefile*; fi
 
 openmpi:
 	@if [ ! -d Obj_$@ ]; then mkdir Obj_$@; fi

@@ -21,3 +21,5 @@ The original Mantevo includes:
 1. CoMD (with modified Makefile)
 2. MiniFE (with modified Makefile)
 3. HPCCG (with modified Makefile)
+4. MiniMD (with modified Makefile, types.h)
+   Using _Pragma() to define pragma inside define macro

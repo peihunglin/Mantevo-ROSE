@@ -19,3 +19,4 @@ Minidrivers:
 
 ROSE successfuly compile the following:
 1. CoMD (with modified Makefile)
+2. MiniFE (with modified Makefile)

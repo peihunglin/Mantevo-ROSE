@@ -1,0 +1,110 @@
+c copyright notice
+c                      Copyright 2013 Sandia Corporation             
+c                                                                    
+c     Under the terms of Contract DE-AC04-94AL85000 with Sandia      
+c     Corporation, the U.S. Government retains certain rights in this
+c     software.                                                      
+c                                                                    
+c     Redistribution and use in source and binary forms, with or     
+c     without modification, are permitted provided that the following
+c     conditions are met:                                            
+c                                                                    
+c      1. Redistributions of source code must retain the above       
+c         copyright notice, this list of conditions and the following
+c         disclaimer.                                                
+c                                                                    
+c      2. Redistributions in binary form must reproduce the above    
+c         copyright notice, this list of conditions and the following
+c         disclaimer in the documentation and/or other materials     
+c         provided with the distribution.                            
+c                                                                    
+c      3. Neither the name of the Corporation nor the names of the   
+c         contributors may be used to endorse or promote products    
+c         derived from this software without specific prior written  
+c         permission.                                                
+c                                                                    
+c     THIS SOFTWARE IS PROVIDED BY SANDIA CORPORATION "AS IS" AND ANY
+c     EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,  
+c     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A    
+c     PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL SANDIA    
+c     CORPORATION OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT,      
+c     INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL     
+c     DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+c     SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;   
+c     OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF  
+c     LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT      
+c     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF  
+c     THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+c     SUCH DAMAGE.                                                   
+c     
+c
+c************************************************************
+c
+c                       smac2d
+c                Sandia miniAero Code 2D
+c                     Version 1.0 
+c
+c         Incompressible Navier-Stokes Flow Solver
+c
+c main program file: smac2d.f
+c
+c Required input files:
+c   1. xy.dat_original          original grid file, 1 block only;
+c                               formatted, plot3d format
+c   2. bcmain.dat_original      main boundary condition file for 
+c                               original grid; formatted
+C
+c   All other necessary files are internally generated:
+c   1. GRIDS2D
+c   2. bcpzn.dat
+c   3. GRID_DIVIDED_3D.G
+c   4. bcmain.dat
+c   5. bcwake.dat
+c
+c To run 32-node case on Sandia's redsky:
+c   1. allocate 4 nodes, where FYxxxxxxx comes from Sandia's Workload
+c      Characterization Tool, or WC Tool:
+c       salloc -N4 --time=4:00:00 --account=FYxxxxxxx bash
+c   2. compile code:
+c       cd <code_directory>
+c       make mpi  ! creates mpi executable smac2d
+c    or
+c       make mpiandthreads ! creates mpi+threads executable smac2d
+c   3. to run 8 cores per node (for 32 cores total) using MPI only:
+c       mpirun -npernode 8 smac2d > smac2d.out
+       to run 8 cores per node with 4 threads per socket of each node:
+        mpirun -npernode 8 env OMP_NUM_THREADS=4 ./smac2d > smac2d.out
+c
+c
+c   Description: 
+c    1. This code solves the incompressible Navier-Stokes
+c       equations in two-dimensional generalized coordinates for 
+c       steady-state flow.  
+c    2. The equations are formulated into a hyperbolic set of PDEs using 
+c       the method of artificial compressibility.  
+c    3. Convective terms are differenced using an upwind biased 
+c       flux-difference splitting.  
+c    4. The equations are solved using a line relaxation or symmetric
+c       Gauss-Seidel solver.
+c    5. For parallel processing, a one-block grid is partitioned into
+c       a user-specified number of subgrids. The code takes care of 
+c       generating one grid cell overlap with point-to-point matching,
+c       as well as ensuring the partitioning process minimizes the
+c       surface-area-to-volume ratio of the subgrids based on the number
+c       of subgrids chosen by the user..
+c    6. The number of subgrids for the solution space is defined by the
+c       number of MPI ranks assigned to the run. For example, if as shown
+c       above, salloc allocates 4 nodes, and there are 8 cores per node
+c       as indicated in the mpirun command, then the original 1-block grid
+c       will be automatically partitioned into 32 subgrids.
+
+c  If you have comments or questions regarding this code, contact:
+c       Daniel W. Barnette
+c       Sandia National Laboratories
+c       MS 1319
+c       Albuquerque, NM 87185
+c       dwbarne@sandia.gov
+c       dwbarne@gmail.com
+c       phone: 505.453.1032
+c
+c

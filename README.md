@@ -3,7 +3,7 @@ Mantevo-ROSE
 This repository hosts miniApps from the Mantevo suite.  The miniApps will serve as testing cases for ROSE compiler.
 
 The original Mantevo includes:
-Miniapps:
+### MiniApps:
 1. CloverLeaf: Version 1.0.1, Reference Version 1.0.1
 2. CoMD: Reference Version 1.1 - OpenMP version added
 3. HPCCG: Reference Version 1.0
@@ -13,10 +13,10 @@ Miniapps:
 7. MiniSMAC2D: Reference Version 1.0
 8. MiniXyce: Reference Version 1.0
 
-Minidrivers:
+### Minidrivers:
 1. CleverLeaf: Version 1.0, Reference Version 1.0
 2. EpetraBenchmarkTest: Version 1.0
 
-ROSE successfuly compile the following:
+## ROSE successfuly compiles the following:
 1. CoMD (with modified Makefile)
 2. MiniFE (with modified Makefile)

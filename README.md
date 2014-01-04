@@ -20,3 +20,4 @@ The original Mantevo includes:
 ## ROSE successfully compiles the following:
 1. CoMD (with modified Makefile)
 2. MiniFE (with modified Makefile)
+3. HPCCG (with modified Makefile)

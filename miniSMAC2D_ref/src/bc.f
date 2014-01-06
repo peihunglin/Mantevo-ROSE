@@ -79,10 +79,10 @@ c      DEBUG = .true.
       node = nz - 1
 
       if (DEBUG.and.node.eq.0) then
-       print*
+       print*,''
        print*, ' >>> In sub. bc.f/bcmain, nodeid, nbcreg =',
      &   node,nbcreg
-       print*
+       print*,''
 
        print*, '  nr nzbc ibcval jkbc jbcb jbce kbcb kbce'
        do 250 nr = 1,nbcreg
@@ -163,12 +163,12 @@ c ... k = constant
                   call bccgridk(jmax,kmax,x,y,q,rtxy,nz,s,btc,bkm,bkp,
      &                        ibcval(nr),pin,kbcb(nr),jbcb(nr),jbce(nr))
                else
-                print*
+                print*,''
                 print*, 'ERROR: jkbc(nr) out of bounds in bc.f'
                 print*, '  jkbc(nr) should be 1 or 2'
                 print*, '  currently, nr, jkbc(nr) = ',
      &            nr,jkbc(nr)
-                print*
+                print*,''
                 print*, ' ... program terminating'
                 stop 'stop: jkbc(nr) out of bounds in bc.f'  
                endif
@@ -200,11 +200,11 @@ c-----
 c  Error in bc's
 c-----
             elseif (ibcval(nr).ne.60) then
-              print*
+              print*,''
               print*, ' ERROR: invalid ibcval(nr) in sub. bc.f/bcmain'
               print*, '    node, ibcval(',nr,') = ',nz,ibcval(nr)
               print*, ' Program stopping'
-              print*
+              print*,''
               stop ' stop: error in ibcval in sub. bc.f/bcmain'
 
             endif
@@ -284,7 +284,7 @@ c output boundary values at j=jmaxb for Node 0
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.0.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'START of bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb =',jmaxb,kmaxb
        print*, '  time step nt =',nt
@@ -324,7 +324,7 @@ c         do 41 ni = 1,num_pts_target
         endif
 c
         if (DEBUG.and.nodeid.eq.0) then
-         print*
+         print*,''
          print*, ' nodeid, ntime = ',nodeid,ntime
          print*, 'j  k neq nireg    snew   dsnew   s    rhs'
         endif
@@ -395,11 +395,11 @@ c--------------------------------------------
 40    continue
 
       if (DEBUG.and.neqs.eq.3.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' After equivalent to call bcimpds:'
        print*, '  s(10,2,2) = ',s(10,2,2)
        print*, '  ds(10,2,2) = ',ds(10,2,2)
-       print*
+       print*,''
        print*, ' In bc.f/bcimpds, rhs from bcintds = '
        print*, '   j    k      rhs_jk1         rhs_jk2        rhs_jk3
      &       dsb_jk2'
@@ -430,7 +430,7 @@ c - only local points are used -- does not use other zones
 c         if (nzint(nireg) .eq. nz) then 
 c
 c          if (DEBUG.and.nz-1.eq.0) then
-c           print*
+c           print*,''
 c           print*, ' in do 40 loop in bc.f/bcimpds: nz = ',nz
 c           print*, ' nireg, iint(1,1) = ',
 c     &      nireg,iint(1,1)
@@ -447,7 +447,7 @@ c40    continue
 
 
       if (DEBUG.and.nodeid.eq.0.and.neqs.eq.3) then
-       print*
+       print*,''
        print*,' In bc.f/bcimpds, rhs from bcintds = '
        print*, ' nid  j   k    rhs_jk1      rhs_jk2      rhs_jk3'
        k = 2
@@ -470,7 +470,7 @@ c DWB: stop
        print*, '20 Nodeid: neqs = ',nodeid,neqs
        print*, ' nreg,nz = ',nreg,nz
        if (nodeid.eq.0) then
-        print*
+        print*,''
         print*, '  nr   nzt(nr)    nzb(nr)'
         do 1000 nr=1,nreg
         write(*,1010) nr,nzt(nr),nzb(nr)
@@ -490,7 +490,7 @@ c++++++++++++++++++++++++++++++++++++++
 c++++++++++++++++++++++++++++++++++++++
         node_in = nzb(nr)-1  ! node_in corresponds to MPI rank
         if (DEBUG) then
-         print*
+         print*,''
          print*, ' In bc.f/bcimpds: nr, node_in = ',nr,node_in
         endif
 c  note that either jmax or kmax, or possibly both, will be same in 
@@ -519,7 +519,7 @@ c now that we know how many points involved, allocate memory
 
 c get values from line of interior points in base grid
         if (DEBUG) then
-         print*
+         print*,''
          print*,' In bc.f/bcimpds: calling first MPI_RECV ',ipoints
          call flush(6)
         endif
@@ -529,7 +529,7 @@ c     &        MPI_COMM_WORLD,req(1),ierr)
      &        MPI_COMM_WORLD,stat,ierr)
 c get delta values from line of interior points in base grid
         if (DEBUG) then
-         print*
+         print*,''
          print*,' In bc.f/bcimpds: calling second MPI_RECV ',ipoints
          call flush(6)
         endif
@@ -564,7 +564,7 @@ c++++++++++++++++++++++++++++++++++++++
 c sends
         node_out = nzt(nr)-1  ! node_out corresponds to MPI rank
         if (DEBUG) then
-         print*
+         print*,''
          print*, ' In bc.f/bcimpds: nr, node_out = ',nr,node_out
         endif
 c note that either jmax or kmax, or possibly both, will be same in 
@@ -596,7 +596,7 @@ c now that we know how many points are involved, allocate memory
         allocate ( sb_line(ipoints,neqs), dsb_line(ipoints,neqs))
         if (DEBUG) then
          print*,'999 For node_out =', node_out,', after allocate for sb'
-         print*
+         print*,''
          print*, ' nr,kbb(nr),keb(nr),kib(nr) =',
      &             nr,kbb(nr),keb(nr),kib(nr)
          print*, ' nr,jbb(nr),jeb(nr),jib(nr) =',
@@ -620,7 +620,7 @@ c define sb_line, dsb_line
 100     continue
 
         if (DEBUG) then
-         print*
+         print*,''
          do i=1,ipoints
           print*, ' sb_line(',i,',1) = ',sb_line(i,1)
          enddo
@@ -628,9 +628,9 @@ c define sb_line, dsb_line
 
 c send values from line of interior points in base grid
         if (DEBUG) then
-         print*
+         print*,''
          print*, ' In node_out = ',node_out,' ipoints = ',ipoints
-         print*
+         print*,''
          print*,' In bc.f/bcimpds: calling first MPI_SEND ',ipoints
          call flush(6)
         endif
@@ -638,7 +638,7 @@ c send values from line of interior points in base grid
      &       MPI_COMM_WORLD,ierr)
 c send delta values from line of interior points in base grid
         if (DEBUG) then
-         print*
+         print*,''
          print*,' In bc.f/bcimpds: calling second MPI_SEND ',ipoints
          call flush(6)
         endif
@@ -658,7 +658,7 @@ c ... print j=jmax values for node 0
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.0.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -674,7 +674,7 @@ c ... print j=2 values for node 1
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.1.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -689,7 +689,7 @@ c ... print j=60 values for node 0
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.0.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -704,7 +704,7 @@ c ... print j=1 values for node 1
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.1.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -719,7 +719,7 @@ c ... print j=1 values for node 0
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.0.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -734,7 +734,7 @@ c ... print j=jmaxb/2 values for node 0
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.0.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, '  time step nt = ',nt
@@ -749,7 +749,7 @@ c ... print j=jmaxb/2 values for node 1
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.1.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'End of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb = ',jmaxb,kmaxb
        print*, ' time step nt = ',nt
@@ -764,7 +764,7 @@ c ... print j=jmaxb values for node 1
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG2.and.numprocs.eq.2.and.nodeid.eq.1.and.neqs.eq.3.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'END of bc.f/bcimpds -- Overlap BCs for nodeid:',nodeid
        print*, '  jmaxb,kmaxb =',jmaxb,kmaxb
        print*, '  time step nt =',nt
@@ -819,7 +819,7 @@ c      DEBUG = .true.
 
       nodeid = nz - 1
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
 c       print*, 'j  k  n  ni nireg'
        print*, 'j  k  n  ni nireg'
       endif
@@ -1153,7 +1153,8 @@ c  Error
 c-----
          else
             write(istdout,40)
-            print 40
+c            print 40
+            print*,' ERROR: in bccgridk, k must be 1 or kmax '
             print*, '>bc.f  nz  ibval kmax   k  jbeg jend'
             print 45,nz,ibval,kmax,k,jbeg,jend
 45          format(5x,6i5)

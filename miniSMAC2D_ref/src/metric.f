@@ -78,7 +78,7 @@ c      DEBUG = .true.
       endif
 
       if (DEBUG.and.nodeid.eq.1) then
-        print*
+        print*,''
         print*, ' nodeid  j   k      x(jk)       y(jk)'
         do k=15,17
         do j=30,34
@@ -117,7 +117,7 @@ c-----
 30    continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' j  k    y_j         yj_jk'
        do 32 k=1,10
        do 32 j=1,17
@@ -130,7 +130,7 @@ c-----
 c  k-direction differences
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
       endif
 
       do 40 k=2,kmax-1
@@ -161,7 +161,7 @@ c-----
 c  Compute Jacobian and metrics
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' nodeid j k      xj      xk      yj      yk     x    y'
       endif
 
@@ -208,7 +208,7 @@ c-----
       endif
 
       if (DEBUG) then
-       print*
+       print*,''
 c       print*, ' stop: after do 100 in metric.f/metric'
 c       stop ' stop: after do 100 in metric.f/metric'
       endif
@@ -245,7 +245,7 @@ c-----
 500   continue
  
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' nodeid  j   k  rtxy(jk12)  rtxy(jk13)  rtxy(jk22)  rtxy
      &(jk23)'
        if (jmax.gt.17) then

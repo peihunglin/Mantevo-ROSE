@@ -90,7 +90,7 @@ c-----
 
 c      if (DEBUG.and.nodeid.eq.4) then
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
 c       print*,' DELETE15.15: nodeid,z1,z2,z3 = ',
 c     &  nodeid,z1,z2,z3
 c       print*,' DELETE15.15: nodeid, dq(1,1,(1,2,3)) = ', 
@@ -103,7 +103,7 @@ c       print*, ' DELETE15.15: nodeid,rhs(2,2,(1,2,3)) = ',
 c     &  nodeid,rhs(2,2,1),rhs(2,2,2),rhs(2,2,3)
        print*, ' DELETE15.15: nodeid,nt,rhs(jmax,kmax,(1,2,3) = ',
      &  nodeid,nt,rhs(jmax,kmax,1),rhs(jmax,kmax,2),rhs(jmax,kmax,3)
-       print*
+       print*,''
        print*, 'BEFORE:'
        print*,'   nt   j   k   rhs1            rsh2            rsh3'
        do 6050 j=1,jmax
@@ -112,7 +112,7 @@ c       do 6050 k=1,kmax
         write(*,6055) nt,j,k,rhs(j,k,1),rhs(j,k,2),rhs(j,k,3)
 6055    format(3i5,1pe12.5,2x,1pe12.5,2x,1pe12.5)
 6050   continue
-      print*
+      print*,''
       print*,'   nt   j   k   btc11      btc22        btc33'
       do 7060 j=1,jmax
       do 7060 k=1,1
@@ -148,7 +148,7 @@ c
       if (DEBUG.and.nodeid.eq.4) then
        print*,' DELETE16.1: nodeid,rhs(jmax,kmax,(1,2,3)) = ',
      &  nodeid,rhs(jmax,kmax,1),rhs(jmax,kmax,2),rhs(jmax,kmax,3)
-       print*
+       print*,''
        print*, 'BETWEEN'
        print*,'   nt   j   k   rhs1            rsh2            rsh3'
        do 7050 j=1,jmax
@@ -161,7 +161,7 @@ c       stop 'stop: after DELETE16.1'
 
 c   do 30 i=jmax+1,imax
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*, ' In do-loop 30:'
        print*, ' nodeid  j   k  btc11   btc12   btc13   btc21    btc22    
      &btc23   btc31   btc32    btc33'
@@ -228,8 +228,8 @@ c
        if (DEBUG.and.nodeid.eq.4) then
        write(*,4017) j,k,rhs(j,k,1),rhs(j,k,2),rhs(j,k,3)
 4017  format('---new rhs---',2i6,1x,1pe12.5,1x,1pe12.5,1x,1pe12.5)
-       print*
-       print*
+       print*,''
+       print*,''
        endif
 
 c++++++++++++++++++++++++++++++
@@ -276,8 +276,8 @@ c
      &                   - btc(j,k,1,2)*rhs(j,k,2)
        if (DEBUG.and.nodeid.eq.4) then
         write(*,4017) j,k,rhs(j,k,1),rhs(j,k,2),rhs(j,k,3)
-        print*
-        print*
+        print*,''
+        print*,''
        endif
 
 c++++++++++++++++++++++++++++++
@@ -289,7 +289,7 @@ c++++++++++++++++++++++++++++++
       if (DEBUG.and.nodeid.eq.4) then
        print*,' DELETE16.2: nodeid,rhs(jmax,kmax,(1,2,3)) = ',
      &  nodeid,rhs(jmax,kmax,1),rhs(jmax,kmax,2),rhs(jmax,kmax,3)
-       print*
+       print*,''
        print*, 'BETWEEN 2'
        print*,'   nt   j   k   rhs1            rhs2            rhs3'
        do 8050 j=1,jmax
@@ -360,7 +360,7 @@ c      i = imax
       dq(j,k,1) = z1 - btc(j,k,1,3)*dq(j,k,3) - btc(j,k,1,2)*dq(j,k,2)
 
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*,' DELETE15.1: nt,nodeid, dq(jmax,kmax,(1,2,3)) = ', 
      &  nt,nodeid,dq(jmax,kmax,1),dq(jmax,kmax,2),dq(jmax,kmax,3)
        print*,' DELETE15.1: nt,nodeid,rhs(jmax,kmax,2),z2,z3 = ',
@@ -368,7 +368,7 @@ c      i = imax
        print*,' DELETE15.1: nt,btc(jmax,kmax,2,2) = ',
      &  nt,btc(jmax,kmax,2,2)
 
-       print*
+       print*,''
        print*, 'AFTER'
        print*,'   nt   j   k   rhs1            rsh2            rsh3'
        do 5050 j=1,jmax
@@ -404,7 +404,7 @@ c
 120   continue
 
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*,' DELETE15.2: nodeid,dq(2,kmax,2),dq(2,kmax,3) = ', 
      &  nodeid,dq(2,kmax,2),dq(2,kmax,3)
       endif
@@ -469,7 +469,7 @@ c
 130   continue
 
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*,' DELETE15.3: nodeid, dq(2,2,2) = ', 
      &  nodeid,dq(2,2,2)
       endif
@@ -573,7 +573,7 @@ c      do 130 i=imax-jmax,1,-1
 
       if (DEBUG.and.nodeid.eq.4) then
       call flush(6)
-      print*
+      print*,''
 c      print*, ' From ilusol/ilusol1.f with neqs =',neqs
 c      print*, ' node    j    k   btc   bjm  rhs  dq    '
 c      do 200 j=1,jmax

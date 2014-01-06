@@ -67,7 +67,7 @@ c-------------------------------------------------------------
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' --------- in conup.f/conup -----------'
        print*, ' s(17,2,1),f(2,1) = ',s(17,2,1),f(2,1)
 c       stop 'stop: AT START OF conup.f/conup 1'
@@ -81,7 +81,7 @@ c-----
       do 100 k=2,kmax-1
 
        if (DEBUG.and.nodeid.eq.0.and.k.eq.2) then
-        print*
+        print*,''
         print*, ' beta,cvel = ',beta,cvel
         print*, '  j   k    atj12       atj22       atj32'
        endif
@@ -120,7 +120,7 @@ c-----
 c  Compute matrix
 c-----
       if (DEBUG.and.nodeid.eq.0.and.k.eq.2) then
-       print*
+       print*,''
        print*, ' j  k    ap_11    ap_22   ap_33   am_11   am_22   am_33'
       endif
 
@@ -198,18 +198,18 @@ c DWB: fluxj3 checks out with original code
             call fluxj5(jmax,kmax,q,rtxy,dj,1,jmax-1,k,
      &                  at,am,ap)
          else
-            print*
+            print*,''
             print*, ' ERROR: invalid value for iflxo in conup.f'
             print*, '   Check input parameters.'
             print*, '   iflxo must be 1, 3, or 5.'
             print*, '   Current value iflxo =',iflxo
             print*, ' Program terminated.'
-            print*
+            print*,''
             stop ' stop: error iflxo value, stopping in conup.f'
          endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' j  k   btc11    btc21   btc31    btc12   btc22   btc32'
       endif
 
@@ -368,9 +368,9 @@ c  Default: iflxo = 3
             endif
 c
       if (DEBUG.and.nodeid.eq.0.and.j.le.17) then
-       print*
-       print*
-       print*
+       print*,''
+       print*,''
+       print*,''
        print*,'-j   k   btc11    btc21    btc31   btc12   btc22   btc32'
       endif
 c
@@ -421,7 +421,7 @@ c
 
 c print initial values of s
       if (DEBUG.and.nodeid.eq.0.and.j.le.17) then
-        print*
+        print*,''
         print*, ' Initial values of s()'
         print*, ' nodeid j  k  sjk1      sjk2      sjk3     fk1     fk2 
      &      fk3'
@@ -434,8 +434,8 @@ c        do 289 k=2,kmax-1
       endif
 
       if (DEBUG.and.nodeid.eq.0.and.j.le.17) then
-       print*
-       print*
+       print*,''
+       print*,''
       endif
 
             do 290 k=2,kmax-1
@@ -459,10 +459,10 @@ c        do 289 k=2,kmax-1
 300      continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' In conup.f/conup at end:'
        print*, ' btc(2,2,1,1),btc(2,2,2,2) =',btc(2,2,1,1),btc(2,2,2,2)
-       print*
+       print*,''
        call flush(6)
        call flush(istdout)
 c       print*, ' stop: AT END OF conup.f/conup'

@@ -71,7 +71,7 @@ c------------------------------------------------------------------
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' At begin of btlu3j: b(2,1,2,2) = ',b(2,1,2,2)
 c       stop 'stop: at begin of btlu3j'
       endif 
@@ -106,7 +106,7 @@ c       print*, ' node 0:  ** a(2,2,2,2) = ',a(2,2,2,2)
 c       print*, ' node 0:  ** b(2,2,2,2) = ',b(2,2,2,2)
 c       print*, ' node 0:  ** c(2,2,2,2) = ',c(2,2,2,2)
 c       print*, ' ---------'
-c       print*
+c       print*,''
 c       print*, ' node 0: ** before do 10 in btlu3.f/btlu3'
        if (kmax.gt.10) then
         kmaxx = 10
@@ -131,11 +131,11 @@ c       stop 'stop: in btlu3.f/btlu3j 10'
 !$ omp parallel do private(d1,d2,d3)
       do 10 k=kbeg,kend
          if (b(j,k,1,1).eq. 0.0) then
-          print*
+          print*,''
           print 100,nodeid,j,k,b(j,k,1,1)
 100       format('ERROR in btlu3.f/btlu3j: nodeid,j,k,b(j,k,1,1) = ',
      &     3i5,e12.5) 
-          print*
+          print*,''
           return
          endif
          b(j,k,1,1) = 1./b(j,k,1,1)
@@ -187,7 +187,7 @@ c       print*, ' node 0:  ***** c(2,2,2,2) = ',c(1,2,2,2)
        print*, ' node 0:  ***** b(5,1,2,2) = ',b(5,1,2,2)
        print*, ' node 0:  ***** c(5,1,2,2) = ',c(5,1,2,2)
        print*, ' nodeid = ',nodeid
-       print*
+       print*,''
        print*, ' nodeid  j  k    b(j,k,2,2) AFTER 10 continue'
        if (kmax.gt.10) then
         kmaxx = 10
@@ -213,7 +213,7 @@ c  Interior points
 c-----
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, '----------------------------'
        print*, 'Before do 50: jbeg+1, jend-1,kbeg,kend = ',
      &  jbeg+1,jend-1,kbeg,kend
@@ -271,7 +271,7 @@ c            endif
        print*, ' node 0:  ***** b(2,1,2,2) = ',b(2,1,2,2)
        print*, ' node 0:  ***** b(3,1,2,2) = ',b(3,1,2,2)
        print*, ' node 0:  ***** b(4,1,2,2) = ',b(4,1,2,2)
-       print*
+       print*,''
 c       stop 'stop: in btlu3.f/btlu3 20'
       endif
 
@@ -284,10 +284,10 @@ c-----
             b(j,k,1,3) = b(j,k,1,3)*b(j,k,1,1)
 
       if (DEBUG.and.nodeid.eq.0.and.j.eq.2.and.k.eq.1) then
-       print*
+       print*,''
        print*, 'In do 30: b_jk22,b_jk21,b_jk12 =',b(j,k,2,2),
      &  b(j,k,2,1),b(j,k,1,2)
-       print*
+       print*,''
       endif
 
 c DWB: this gives a large number!
@@ -324,12 +324,12 @@ c
 30       continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0:  ***** after do 30'
        print*, ' node 0:  ***** b(2,1,2,2) = ',b(2,1,2,2)
        print*, ' node 0:  ***** b(3,1,2,2) = ',b(3,1,2,2)
        print*, ' node 0:  ***** b(4,1,2,2) = ',b(4,1,2,2)
-       print*
+       print*,''
 c       stop 'stop: in btlu3.f/btlu3 30'
       endif
 
@@ -381,7 +381,7 @@ c-----
        print*, ' node 0:  ***** b(2,1,2,2) = ',b(2,1,2,2)
        print*, ' node 0:  ***** b(3,1,2,2) = ',b(3,1,2,2)
        print*, ' node 0:  ***** b(4,1,2,2) = ',b(4,1,2,2)
-       print*
+       print*,''
 c      stop 'stop: in btlu3.f/btlu3 60'
       endif
 
@@ -409,7 +409,7 @@ c-----
        print*, ' node 0:  ***** b(2,1,2,2) = ',b(2,1,2,2)
        print*, ' node 0:  ***** b(3,1,2,2) = ',b(3,1,2,2)
        print*, ' node 0:  ***** b(4,1,2,2) = ',b(4,1,2,2)
-       print*
+       print*,''
 c       stop 'stop: in btlu3.f/btlu3j 70'
       endif
 c-----

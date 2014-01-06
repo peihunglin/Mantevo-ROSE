@@ -70,7 +70,7 @@ c
       logical DEBUG
       logical zz_run_default_input
       double precision, parameter :: pi = 4.0*atan(1.0)
-      double precision, parameter :: integer istdout=6
+c      double precision, parameter :: integer istdout=6
       integer nodeid,numprocs,ierr,stat(MPI_STATUS_SIZE)
       __REAL rvar(6)
       __INTEGER ivar(4)
@@ -80,11 +80,12 @@ c
      &  ntmax,reynum,title,underr,zz_run_default_input
 c********************************************************
 
+      istdout = 6
       DEBUG = .false.
 c      DEBUG = .true.
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' >>> Entering sub initia - node = ',nodeid,' <<<'
        print*, '   nodeid = ',nodeid
        print*, '   numprocs = ',numprocs
@@ -117,7 +118,10 @@ c-------------------------------
 999    continue
 
 c       read(900,input,err=991)
-       read(900,input)
+c       read(900,input)
+       read(900,*) alpha,beta,dcoef2,dcoef4,dt,dtau,geometry,impsch,
+     &  iturb,ivis,
+     &  ntmax,reynum,title,underr,zz_run_default_input
        goto 992
 991    continue
        write(istdout,12) namelist_input_file
@@ -129,7 +133,7 @@ c       read(900,input,err=991)
        stop 'stopping: cannot read from namelist input file'
 
 992    continue
-       print*
+       print*,''
        print*, 'From namelist file:',namelist_input_file
        print*, '-----------------------------------------------'
        write(istdout,input)
@@ -154,7 +158,7 @@ c ... use default values for airfoil
         reynum = 1.50D6            ! reynolds number of 1,500,000
         title='SMAC2D -- Sandia MiniAero Code 2D - DEFAULT VALUES' !title
         underr = 0.01D0           ! under-relaxation parameter, 0 < underr < 1
-        print*
+        print*,''
         print*, 'DEFAULT AIRFOIL VALUES ARE BEING USED FOR THIS RUN:'
         if (DEBUG) then
          write(*,955) alpha,beta,dt,dtau,trim(geometry),impsch,iturb,ivis,
@@ -177,32 +181,32 @@ c ... use default values for airfoil
 c a few checks on input values
 c ... ivis
       if (ivis.ne.0.and.ivis.ne.1) then
-       print*
+       print*,''
        print*, 'ERROR: invalid value for ivis on nodeid =',nodeid
        print*, '  ivis must be either 0 (inviscid) or 1 (viscous)'
        print*, '  Current value of ivis =',ivis
        print*, 'Program terminating.'
-       print*
+       print*,''
        stop 'stop: invalid value for ivis'
       endif
 c ... iturb
       if (iturb.ne.0.and.iturb.ne.1) then
-       print*
+       print*,''
        print*, 'ERROR: invalid value for iturb on nodeid =',nodeid
        print*, '  iturb must be either 0 (laminar) or 1 (turbulent)'
        print*, '  Current value of iturb =',iturb
        print*, 'Program terminating.'
-       print*
+       print*,''
        stop 'stop: invalid value for iturb'
       endif
 c ... underr
       if (underr.le.0.0d0.or.underr.gt.1.0d0) then
-       print*
+       print*,''
        print*, ' ERROR: invalid value for underr on nodeid =',nodeid
        print*, '   underr must be between 0 and 1'
        print*, '   Current value of underr =',underr
        print*, 'Program terminating.'
-       print*
+       print*,''
        stop 'stop: invalid value for underr'
       endif
 c Send values to other nodes
@@ -279,7 +283,7 @@ c-----
 c********************
       if (nodeid.eq.0) then
 c********************
-       print*
+       print*,''
        print*, '+++++++++++++++++++++++++++++++++++++++++++++++++++++'
        print*, '       Flow Conditions and Initialized Variables     '
        print*, '+++++++++++++++++++++++++++++++++++++++++++++++++++++'
@@ -293,7 +297,7 @@ c********************
        print*, 'impsch: ',impsch
        print*, 'iturb: ',iturb
        print*, 'ivis: ',ivis
-       print*
+       print*,''
        print*, 'beta: ',beta
        print*, 'dtau: ',dtau
        print*, 'dt: ',dt
@@ -304,7 +308,7 @@ c********************
        print*, 'underr: ',underr
        print*, 'vnu = 1./reynum: ',vnu
        print*, '+++++++++++++++++++++++++++++++++++++++++++++++++++++'
-       print*
+       print*,''
 c********************
       endif
 c********************
@@ -312,7 +316,7 @@ c********************
        call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' Finished in initia.f/initia 100 - node =',nodeid
        call flush(6)
        print*, ' This is nodeid =',nodeid
@@ -368,7 +372,7 @@ c-----
       xtran2 = xtr2
 
       if (nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' Settings from initia.f/inizone:'
        print*, '  kpr = ',kpr
        print*, '  njswp = ',njswp
@@ -390,12 +394,12 @@ c-----
        print*, '  xtran1 = ',xtran1
        print*, '  xtran2 = ',xtran2
        print*, '    ---  end ---'
-       print*
+       print*,''
       endif
 
 
       if (DEBUG) then
-         print*
+         print*,''
          print*, ' >> Node ',nodeid,': finished in initia.f/inizone '
       endif
 

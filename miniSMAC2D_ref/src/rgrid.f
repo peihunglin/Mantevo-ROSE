@@ -80,11 +80,11 @@ c      call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       allocate (jdum(numprocs),kdum(numprocs))
 
       if (DEBUG) then
-        print*
+        print*,''
         print*, '>>> MODULE: rgrid.f/rgridh'
-        print*
+        print*,''
         if (nodeid.eq.0) then
-          print*
+          print*,''
           print*, ' >>> Node 0: reached MPI_BARRIER for rgridh 001'
         endif
       endif
@@ -97,9 +97,9 @@ c++++++++++++++++++++++++++++++++++++++++++++
 5     format(/'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',
      &       /'                Grid Information (sub rgrid.f/rgridh)',/)
 
-      print*
+      print*,''
 c      print*, ' stopping at rgrid.f/rgridh 50'
-c      print*
+c      print*,''
 c      stop ' stoppping at rgrid.f/rgridh 50'
 
 c-----
@@ -115,7 +115,7 @@ c read original grid file
       filename = 'xy.dat_original'
 c
       print*, ' inquiring about grid file = ',filename
-      print*
+      print*,''
       inquire(file=filename,exist=yes)
       if(yes) then
          goto 30
@@ -144,10 +144,10 @@ c-----
 31    format('Node ',i4,': Opening file named "',a,'"')
 
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' nodeid 0: opening formatted file = ',filename
         print*, '   ... iunit = ',iunit
-        print*
+        print*,''
       endif
 c open file
       open(iunit,file=filename,form='formatted',status='old')
@@ -167,17 +167,17 @@ c check if formatted or unformatted
 45    continue
       if(.not. form) then
         if (DEBUG) then
-          print*
+          print*,''
           print*, ' Closing iunit = ',iunit
-          print*
+          print*,''
         endif
         close(iunit)
       endif
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' nodeid 0: form = ',form
-       print*
+       print*,''
       endif
 
 c-----
@@ -218,9 +218,9 @@ c
             rewind(iunit)
             read(iunit,*) numgrd
             if (DEBUG) then
-             print*
+             print*,''
              print*, ' nodeid 0: mzone = ',mzone,' numgrd = ',numgrd
-             print*
+             print*,''
             endif
 c
             ints=0
@@ -256,9 +256,9 @@ c
            write(istdout,*) '        three-dimensional file. Must use'
            write(istdout,*) '        a two-dimensional file. Stopping.'
            write(istdout,*) '        ints, numgrd: ',ints,numgrd
-           print*
+           print*,''
            print*, ' nodeid 0 has reached rgrid.f/rgridh 100'
-           print*
+           print*,''
            stop ' stopping at rgrid.f/rgridh 100'
          endif
 c
@@ -268,17 +268,17 @@ c
          if(mzone)then
             read(iunit,*)numgrd
             if (DEBUG) then
-             print*
+             print*,''
              print*, ' nodeid 0: numgrd = ',numgrd
-             print*
+             print*,''
             endif
          else
             numgrd=1
          endif
 c
-         read(iunit,*)idim,jdim,(idum,idum,ng=1,numgrd-1)
-         read(iunit,*) ((dum,i=1,idim),j=1,jdim),
-     &                 ((dum,i=1,idim),j=1,jdim)
+c         read(iunit,*)idim,jdim,(idum,idum,ng=1,numgrd-1)
+c         read(iunit,*) ((dum,i=1,idim),j=1,jdim),
+c     &                 ((dum,i=1,idim),j=1,jdim)
 c
          iblank = .false.
          read(iunit,35,end=79)aline
@@ -289,9 +289,9 @@ c
 79       continue
 
          if (DEBUG) then
-          print*
+          print*,''
           print*, ' nodeid 0: iblank = ',iblank
-          print*
+          print*,''
          endif
 
          if (iblank) then
@@ -299,9 +299,9 @@ c
            write(istdout,*) '      array. MiniAero can only handle'
            write(istdout,*) '      patched grid problems for now.'
            write(istdout,*) ' '
-           print*
+           print*,''
            print*, ' stopping at rgrid.f/rgridh 110'
-           print*
+           print*,''
            stop ' stopping at rgrid.f/rgridh 110'
         endif
 
@@ -319,19 +319,21 @@ c
             mzone=.false.
             threed=.true.
             goto 130
-80       rewind(iunit)
+80       continue 
+         rewind(iunit)
             read(iunit,err=90)i,j
             mzone=.false.
             threed=.false.
             goto 130
-90       rewind(iunit)
+90        continue
+          rewind(iunit)
             read(iunit,err=100)numgrd
             mzone=.true.
             goto 110
 100      write(istdout,*)' ERROR: bad grid...  stopping'
-         print*
+         print*,''
          print*, ' stopping at rgrid.f/rgridh 120'
-         print*
+         print*,''
          stop ' stopping at rgrid.f/rgridh 120'
 c
 c  2d or 3d
@@ -350,9 +352,9 @@ c
            write(istdout,*) ' ERROR: input grid file appears to be a'
            write(istdout,*) '        three-dimensional file. Must use'
            write(istdout,*) '        a two-dimensional file. Stopping.'
-           print*
+           print*,''
            print*, ' stopping at rgrid.f/rgridh 120'
-           print*
+           print*,''
            stop ' stopping at rgrid.f/rgridh 120'
          endif
 c
@@ -371,9 +373,9 @@ c
          if(iblank) then
            write(istdout,*) ' ERROR: input grid is iblanked. This'
            write(istdout,*) '    is not allowed for smac2d. Stopping.'
-           print*
+           print*,''
            print*, ' stopping at rgrid.f/rgridh 130'
-           print*
+           print*,''
            stop ' stopping at rgrid.f/rgridh 130'
           endif
 
@@ -392,16 +394,16 @@ c-----
       if(form) then
 
        if (DEBUG) then
-         print*
+         print*,''
          print*, ' nodeid 0: opening iunit = ',iunit,
      &      ' filename = ',filename
          print*, ' mzone = ',mzone
-         print*
+         print*,''
        endif
 
          open(iunit,file=filename,form='formatted',status='old')
          print*, ' file is formatted'
-         print*
+         print*,''
 
          rewind(iunit)
 
@@ -411,12 +413,12 @@ c-----
             nzone = 1
          endif
          print*, '   nzone = ',nzone
-         print*
+         print*,''
          print*, ' nodeid 0: reading jdum,kdum, nz=1,nzone, rgridh 111'
          print*, '    ... nzone = ',nzone
          read(iunit,*) (jdum(nz),kdum(nz),nz=1,nzone)
          print*, '  grid file header has been read'
-         print*
+         print*,''
 
       else
          open(iunit,file=filename,form='unformatted',status='old')
@@ -523,10 +525,10 @@ c+++++++++++++++++++++++++++++++++++++
         ivar(2) = kdum(i)
         ivar(3) = numprocs
         if (DEBUG) then
-          print*
+          print*,''
           print*, ' ivar for sending to node = ',node_out
           print *, ivar(1),ivar(2),ivar(3)
-          print*
+          print*,''
           print*, ' lvar for sending to node = ',node_out
           print *, lvar(1),lvar(2),lvar(3)
         endif
@@ -557,9 +559,9 @@ c+++++++++++++++++++++++++++++++++++++
 c+++++++++++++++++++++++++++++++++++++
 
       if (DEBUG) then
-        print *
+        print *,''
         print *, ' NODEID ',nodeid,': CALL MPI_RECV'
-        print *
+        print *,''
       endif
       ivar(1) = 0
       ivar(2) = 0
@@ -571,7 +573,7 @@ c unpack ivar
       kmax = ivar(2)
       numprocs = ivar(3)
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' ivar received from node 0 for node = ',nodeid
         print*, '  ivar(1),ivar(2),ivar(3) = '
         print*, ivar(1),ivar(2),ivar(3)
@@ -584,7 +586,7 @@ c unpack lvar
       mzone = lvar(2)
       iblank = lvar(3)
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' lvar received from node 0 for node = ',nodeid
         print *, lvar(1),lvar(2),lvar(3)
       endif
@@ -610,7 +612,7 @@ c+++++++++++++++++++++++++++++++++++++++
       deallocate (jdum,kdum)
 
       if (DEBUG) then
-       print*
+       print*,''
        print *, ' -- Calling MPI_BARRIER at end of rgridh, node = ',
      &  nodeid
        call MPI_BARRIER(MPI_COMM_WORLD,ierr)

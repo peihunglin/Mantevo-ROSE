@@ -148,14 +148,14 @@ c      DEBUG = .true.
 
       if (DEBUG) then
        if (nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> In sub force'
         print*, ' nwall = ',nwall
         print*, ' nw        nwall        jkwall'
         do nw=1,nwall
          print*, nw,nzwall(nw),jkwall(nw)
         enddo
-        print*
+        print*,''
        endif
       endif
 
@@ -168,10 +168,10 @@ c----
             if (jkwall(nw).eq.1) then
 c jkwall(nw)=1 implies j=constant surface (see rbc.f/rbcmain)
              if (DEBUG) then
-              print*
+              print*,''
               print*, ' call fmj: nodeid,nw,nzwall(nw),jkwall(nw) = ',
      &          nodeid,nw,nzwall(nw),jkwall(nw)
-              print*
+              print*,''
               print*, ' ... call fmj in sub force, nodeid = ',nodeid
               print*, ' nsw,k,jkinc,jbeg,jend = ',nw,kwall1(nw),
      &          jkinc(nw),jwall1(nw),jwall2(nw)
@@ -185,10 +185,10 @@ c call fmj in fm.f
             elseif(jkwall(nw) .eq. 2) then
 c jkwall(nw)=2 implies k=constant surface (see rbc.f/rbcmain)
              if (DEBUG) then
-              print*
+              print*,''
               print*, ' call fmk: nodeid,nw,nzwall(nw),jkwall(nw) = ',
      &          nodeid,nw,nzwall(nw),jkwall(nw)
-              print*
+              print*,''
               print*, ' ... call fmk in sub force, nodeid = ',nodeid
               print*, ' nw,k,jkinc,jbeg,jend = ',nw,kwall1(nw),
      &           jkinc(nw),jwall1(nw),jwall2(nw)

@@ -76,7 +76,7 @@ c      DEBUG1 = .true.
 c      DEBUG2 = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' --------- in step.f/step --------------'
        print*, ' beta = ',beta
 c       stop 'stop: AT START OF step.f/step'
@@ -88,7 +88,7 @@ c output boundary values at j=jmaxb for Node 0
       ntref2 = ntmax 
       if (DEBUG1.and.numprocs.eq.2.and.nodeid.eq.0.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then 
-       print*
+       print*,''
        print*, 'START of step.f/step -- Overlap BCs for nodeid:',nodeid
        print*, '  jmax,kmax = ',jmax,kmax
        print*, '  time step nt =',nt
@@ -114,7 +114,7 @@ c zero arrays btc, bjp, bjm, bkm, bkp, scr1
 5000  continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*,' After do 5000 in step.f/step:'
        print*, ' s = ',s
 c       stop ' stop: after do 5000 in step.f/step'
@@ -122,7 +122,7 @@ c       stop ' stop: after do 5000 in step.f/step'
 
       if (DEBUG.and.(nodeid.eq.0)) then
       icount = 0
-      print*
+      print*,''
       print*, '  node  i   j   k   dq1        dq2        dq3'
       print*, ' This is test 0 in step.f/step'
       itest = 0 
@@ -134,12 +134,12 @@ c       stop ' stop: after do 5000 in step.f/step'
 4005   format(i4,3x,i4,3x,i3,2x,i3,2x,i3,1x,1pe10.3,1x,1pe10.3,
      &  1x,1pe10.3)
 4000  continue
-      print*
-      print*
+      print*,''
+      print*,''
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' DELETE1: nodeid, q(32,2,1) = ',nodeid,q(32,2,1)
       endif
 c      stop 'stop: entering step.f/step'
@@ -147,7 +147,7 @@ c      stop 'stop: entering step.f/step'
       if (DEBUG) then
         call MPI_BARRIER(MPI_COMM_WORLD,ierr)
         if (nodeid.eq.0) then
-         print*
+         print*,''
          print*, ' All nodes have reached step.f/step, 100'
         endif
       endif
@@ -172,7 +172,7 @@ c-----
          endif
 
       if (DEBUG.and.nodeid.eq.0) then
-      print*
+      print*,''
       print*, ' DELETE2: nodeid, q(2,2,2) = ',nodeid,q(2,2,2)
       endif
 c      stop 'stop: before call turvis in step.f/step'
@@ -186,7 +186,7 @@ c if viscous turbulent flow...
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' DELETE3: nodeid, q(32,2,1) = ',nodeid,q(32,2,1)
       endif
 c      stop 'stop: after call turvis in step.f/step'
@@ -203,7 +203,7 @@ c-----
 c  Compute entire system of equations for all zones
 c-----
        if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, 'XXXXXXX sub step XXXXXXXXXXXXXXXX'
         print*, ' ... impsch = ',impsch
         print*, ' '
@@ -213,9 +213,9 @@ c-----
 c  Upwind differencing of inviscid terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: call conup'
-       print*
+       print*,''
       endif
 
 c compute convective terms using upwind differencing;
@@ -235,7 +235,7 @@ c100    continue
       call flush(6)
       call flush(istdout)
       icount = 0
-      print*
+      print*,''
       if (DEBUG.and.nodeid.eq.0) then
        print*, '  node  i   j   k   dq1        dq2        dq3'
        print*,' This is test 1 in step.f/step'
@@ -248,11 +248,11 @@ c100    continue
 2005    format(i4,3x,i4,3x,i4,2x,i3,2x,i3,1x,1pe10.3,1x,1pe10.3,
      &  1x,1pe10.3)
 2000   continue
-       print*
+       print*,''
        print*, 'BEFORE call conup in step.f/step 7:'
        print*, ' btc(2,2,1,1), btc(2,2,2,2) =',
      &   btc(2,2,1,1),btc(2,2,2,2)
-       print*
+       print*,''
 c       stop 'stop: before call conup in step.f/step 7'
       endif
 
@@ -268,16 +268,16 @@ c     & )
       call conup(jmax,kmax,q,rtxy,dj,s,btc,bjm,bjp,bkm,bkp)
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' AFTER call conup in step.f/step 8:'
        print*, '  btc(2,2,1,1), btc(2,2,2,2) = ',
      &  btc(2,2,1,1),btc(2,2,2,2)
-       print*
+       print*,''
 c       stop 'stop: AFTER call conup in step.f/step 8:'
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' step.f/step DELETE4: nodeid, q(2,2,2),dq(2,2,2) = ',
      &  nodeid,q(2,2,2),dq(2,2,2)
       endif
@@ -294,13 +294,13 @@ c-----
 c  Viscous terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: call viscterms'
-       print*
+       print*,''
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'btc in step.f/step, before call viscterms:'
        do 811 k=1,3
        do 801 j=1,jmax
@@ -309,7 +309,7 @@ c-----
 801    continue
        print*, '=================================================='
 811    continue
-       print*
+       print*,''
       endif
 
 
@@ -318,7 +318,7 @@ c-----
       call flush(6)
       call flush(istdout)
       icount = 0
-      print*
+      print*,''
       if (DEBUG.and.nodeid.eq.0) then
       print*, 'itst  node  i   j   k   dq1        dq2        dq3'
       print*,' This is test 2'
@@ -337,7 +337,7 @@ c      stop 'stop: before call viscterms in step.f/step 250'
 
       if (DEBUG2) then
        if (nodeid.eq.0) then
-        print*
+        print*,''
         print*,' Before call viscterms in step.f/step:'
         print*, ' s = ',s
        endif
@@ -355,7 +355,7 @@ c       stop ' stop: Before call viscterms in step.f/step'
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (nodeid.eq.0) then
-      print*
+      print*,''
       print*, ' DELETE5: nodeid, q(32,2,1) = ',nodeid,q(32,2,1)
       endif
 c      stop 'stop: before call bcmain in step.f/step'
@@ -367,7 +367,7 @@ c      stop 'stop: before call bcmain in step.f/step'
        endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'btc before blankit, node 0:'
 c       k=2
 c       do 802 j=1,jmax
@@ -376,7 +376,7 @@ c     &   j,k,btc(j,k,1,1),dj(j,k),dq(j,k,2)
 c802    continue
        print*, ' btc(2,2,1,1), btc(2,2,2,2) =',
      &   btc(2,2,1,1),btc(2,2,2,2)
-       print*
+       print*,''
 c       stop 'stop: before call blankit in step.f/step 9'
       endif
 
@@ -430,7 +430,7 @@ c otherwise, no change
        btc(j,k,2,2) = btc(j,k,2,2) + rdjdtau
        btc(j,k,3,3) = btc(j,k,3,3) + rdjdtau
       if (DEBUG.and.nodeid.eq.0.and.j.eq.2.and.k.eq.2) then
-        print*
+        print*,''
         print*, ' In blankit 2: btc(j,k,2,2) = ',
      &   j,k,btc(j,k,2,2),btc(j,k,1,1),rdjdtau,dtau,dj(j,k),fib
       endif
@@ -445,10 +445,10 @@ c-----
 c  Boundary conditions
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: before call bcmain'
        print*, ' ... node 0: btc(1,1,1,1) = ',btc(1,1,1,1)
-       print*
+       print*,''
       endif
 
       if (DEBUG) then 
@@ -459,7 +459,7 @@ c      stop 'stop: before call bcmain in step.f/step'
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'btc before call bcmain:'
        print*, ' node 0: btc(2,2,1,1), btc(2,2,2,2):',
      &   btc(2,2,1,1),btc(2,2,2,2)
@@ -472,7 +472,7 @@ c       stop 'stop: before call bcmain 15'
      &        )
 
       if (DEBUG.and.nodeid.eq.0) then
-      print*
+      print*,''
       print*, ' DELETE6: nodeid, q(32,2,1) = ',nodeid,q(32,2,1)
       endif
 c      stop 'stop: before call resid in step.f/step'
@@ -486,15 +486,15 @@ c-----
 c  Find max residual, max divergence, and rmsrhs
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: call resid'
-       print*
+       print*,''
       endif
 
          call resid(jmax,kmax,s,scr1,dj,nodeid+1)
 
       if (DEBUG.and.(nodeid.eq.0)) then
-      print*
+      print*,''
       print*, ' DELETE7: nodeid, q(32,2,1) = ',nodeid,q(32,2,1)
       endif
      
@@ -527,7 +527,7 @@ c-----
 c  Line relaxation
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: BEFORE calling lrelax'
        print*, ' node 0 dwb: btc(2,2,1,1), btc(2,2,2,2) =',btc(2,2,1,1),
      &    btc(2,2,2,2)
@@ -560,7 +560,7 @@ c-----
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-      print*
+      print*,''
       print*, ' DELETE8: nodeid, q,dq(32,2,1) = ',
      &  nodeid,q(32,2,1),dq(32,2,1)
       endif
@@ -573,15 +573,15 @@ c-----
 c  Update flow variables to next time step 
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' node 0 dwb: call update'
-       print*
+       print*,''
       endif
 
          call update(jmax,kmax,q,dq,x,y,nt,dcoef2,dcoef4)
 
       if (DEBUG.and.nodeid.eq.0) then
-      print*
+      print*,''
       print*, ' DELETE9: nodeid, q,dq(32,2,1) = ',
      & nodeid,q(32,2,1),dq(32,2,1)
       endif
@@ -628,7 +628,7 @@ c-----
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, '----------- sub resid -----------'
        print*, 'nt,beta =',nt,beta
        print*, ' numprocs =',numprocs
@@ -642,7 +642,7 @@ c      DEBUG = .true.
 40    continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'nodeid nt  j   k   s1     s2   s3   dj'
        if (jmax.gt.17) then
         jmaxx = 17
@@ -709,11 +709,11 @@ c
       divmax = abs( dq(j,k,1)/beta )
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' In step.f: j,k,dq(j,k,1),beta = ',j,k,dq(j,k,1),beta
        print*, 'nodeid,irmax,jk,kres,jres,resmax0,resmax,idmax,divmax=',
      &  nodeid,irmax,jk,kres,jres,resmax0,resmax,idmax,divmax
-       print*
+       print*,''
        call flush(6)
        call flush(istdout)
 c       print*, 'stop: at end of step.f/resid'
@@ -746,7 +746,7 @@ c      DEBUG = .true.
 c      DEBUG1 = .true.
 
       if (DEBUG.and.(nodeid.eq.0)) then
-       print*
+       print*,''
        print*, ' B4 UPDATE: nodeid, q(2,1,1), dq(2,1,1) = ',nodeid,
      &  q(2,1,1),dq(2,1,1)
        print*, ' B4 UPDATE:: nodeid, q(10,1,2), dq(10,1,2) = ',nodeid,
@@ -760,7 +760,7 @@ c      DEBUG1 = .true.
       ntref2 = 3
       if (DEBUG1.and.numprocs.eq.2.and.nodeid.eq.0.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'START of step.f/update -- updated q for nodeid:',nodeid
        print*, '   jmax,kmax =',jmax,kmax
        print*, '   time step nt =',nt
@@ -781,7 +781,7 @@ c      DEBUG1 = .true.
 100   continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' AFTR UPDATE: nodeid, q(2,1,1),dq(2,1,1) = ',nodeid,
      &  q(2,1,1),dq(2,1,1)
        print*, ' AFTR UPDATE:: nodeid, q(10,1,2), dq(10,1,2) = ',nodeid,
@@ -798,7 +798,7 @@ c      DEBUG1 = .true.
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG1.and.numprocs.eq.2.and.nodeid.eq.0.and.
      &  (nt.eq.ntref1.or.nt.eq.ntref2)) then
-       print*
+       print*,''
        print*, 'END of step.f/update -- updated q for nodeid:',nodeid
        print*, '   jmax,kmax =',jmax,kmax
        print*, '   time step nt =',nt
@@ -842,7 +842,7 @@ c
 c
       if (node.ne.nodeid) return
 c
-      print*
+      print*,''
       write(*,5) layers,node,node+1
 5     format(' Printing ',i3,' outer layers (outermost first) for node '
      &,i4,', subgrid #',i4)

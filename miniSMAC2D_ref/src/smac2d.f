@@ -191,19 +191,19 @@ c+++++++++++++++++++++++++++++++++++
 c+++++++++++++++++++++++++++++++++++
 
       if (DEBUG) then
-        print*
+        print*,''
         print*, '>>> MODULE: smac2d.f, SUBROUTINE: main'
-        print*
+        print*,''
       endif
 
       if (DEBUG) then
-        print*
+        print*,''
         print*, 'from "common.f" parameters:'
         print*, '  nzne = ',nzne
         print*, '  ibcmax = ',ibcmax
         print*, '  jkmax = ',jkmax
         print*, '  istdout = ',istdout
-        print*
+        print*,''
       endif
 
 c-----
@@ -225,7 +225,7 @@ c   since YAML interprets colons as something else
       if (DEBUG) then
         print*, ' '
         print*, '** In program main: from nodeid = ',nodeid
-        print*
+        print*,''
         print*, 'date_time = ',date_time
         print*, 'hostname = ',hostname
         print *, ' '
@@ -278,7 +278,7 @@ c copyright notice
      &'ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                  '
      &)
 
-      print *
+      print*,''
       write(*,85) numprocs
 85    format('Total no. of processes for this run = ',i6)
 
@@ -293,17 +293,17 @@ c sync all processes
 c check node availability
       if (DEBUG) then
       if(nodeid.eq.0) then
-        print*
+        print*,''
         print*, 'Checking MPI node availability:'
-        print*
+        print*,''
         print*, ' ...numprocs = ',numprocs,', nodeid = ',nodeid
         do node = 1,numprocs-1
           call MPI_RECV(idum,1,MPI_INTEGER,node,MPI_ANY_TAG,
      &         MPI_COMM_WORLD,stat,ierr) 
         enddo
-        print*          
+        print*,''
         print*, ' -- ALL NODES HAVE RESPONDED --'
-        print*
+        print*,''
 
       else
         call MPI_SEND(1,1,MPI_INTEGER,0,0,
@@ -321,9 +321,9 @@ c++++++++++++++++++++++++++++++++
       if (nodeid.eq.0) then
 c++++++++++++++++++++++++++++++++
        if (DEBUG) then
-        print*
+        print*,''
         print*, 'node 0 calling: rgridh in smac2d.f/main'
-        print*
+        print*,''
        endif
 
 c read grid header; iselect=0 means don't send grid header to 
@@ -347,7 +347,7 @@ c allocate arrays as if they are 3D, needed for breakup
 c allocate memory for dynamic grid points
       print*, ' Node 0: allocating memory for dynamic grid points x,y,z'
       print*, '   using dimensions j,k,l = ',jdim,kdim,ldim
-      print*
+      print*,''
       allocate(x(jkl,numprocs),y(jkl,numprocs),z(jkl,numprocs))
 
 c allocate memory for static grid points (original grid)
@@ -364,7 +364,7 @@ c read original grid
       kindex = 1
       if (DEBUG) then
        print*, ' Node 0: calling readgo in smac2d.f/main'
-       print*
+       print*,''
       endif
       call readgo(iunit,xorig,yorig,zorig,jdim,kdim,ldim,lindex)
 
@@ -380,30 +380,30 @@ c++++++++++++++++++++++++++++++++
         call corners(nodeid,jdim,kdim,ldim,jkl,
      1   xorig,yorig,zorig,1)
 
-        print*
+        print*,''
         print*, ' Grid is to be broken up into ',numprocs,
      &    ' subgrids'
         print*, '   with ',nghost,' layer of ghost cells.'
-        print*
+        print*,''
        endif
-      print*
+      print*,''
 c      print*, ' Node ',nodeid
 
 c+++++++++++++++++++++++++++
       if (nodeid.eq.0) then
 c+++++++++++++++++++++++++++
-        print*
+        print*,''
         print*, ' ***** Node 0: entering breakup routines in smac2d.f/ma
      &in *****'
-        print*
+        print*,''
 
 c preprocess grid for partitioning
 c use following options for preprocessing original grid file
 c   1) 90-deg CW rotation about +x axis
-      print*
+      print*,''
       print*, '+++++++++++++++++++++++++++++++++++++++++++++++'
       print*, ' calling: switchzy in smac2d.f/main'
-      print*
+      print*,''
       call switchzy(xorig,yorig,zorig,
      & jkl,jdim,kdim,ldim)
 
@@ -414,10 +414,10 @@ c   1) 90-deg CW rotation about +x axis
 
 
 c add 2 additional k planes to make grid look 3D for breakup routines
-      print*
+      print*,''
       print*, '+++++++++++++++++++++++++++++++++++++++++++++++ '
       print*, ' calling: addk2d in smac2d.f/main '
-      print*
+      print*,''
       call addk2d(xorig(1),yorig(1),zorig(1),
      &  jkl,jdim,kdim,ldim)
 
@@ -427,10 +427,10 @@ c add 2 additional k planes to make grid look 3D for breakup routines
       endif
 
 c write corner points of grid 
-      print*
+      print*,''
       print*, '+++++++++++++++++++++++++++++++++++++++++++++++'
       print*, ' calling: cube in smac2d.f/main'
-      print*
+      print*,''
       call cube(xorig(1),yorig(1),zorig(1),
      & jdim,kdim,ldim)
 
@@ -441,10 +441,10 @@ c write corner points of grid
 c
 c partition grid into 'numprocs' partitions; output is a static grid
 c   load balanced, ghost celled, and ready for parallel processing
-       print*
+       print*,''
        print*, '+++++++++++++++++++++++++++++++++++++++++++++++'
        print*, ' Node 0: calling partishn in smac2d.f/main'
-       print*
+       print*,''
       call partishn(iunit,form,mzone,xorig(1),yorig(1),zorig(1),
      & jdim,kdim,ldim,idimj,idimk,idiml,jkl,nodeid,numprocs,
      & j_subgrid(1),k_subgrid(1),l_subgrid(1),
@@ -457,7 +457,7 @@ c print grid corners to see if all is still ok
      1   xorig(1),yorig(1),zorig(1),10)
       endif
 
-      print*
+      print*,''
       print*, ' Node 0: finished calling partishn in smac2d.f/main'
       print*, '+++++++++++++++++++++++++++++++++++++++++++++++++++'
  
@@ -489,7 +489,7 @@ c-----
       call initia(geometry1,title1)
 
       if (DEBUG1.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' AFTER call initia in smac2d.f/smac2d'
        print*, '    beta = ',beta
        print*, '    dtau = ',dtau
@@ -558,7 +558,7 @@ c change number of zones to text
 
 c substitute spaces with underlines in the 'geometry1' variable
       geometry_yaml = trim(geometry1)
-c      print*
+c      print*,''
 c      print*, geomtry_yaml,' is the old geometry string'
 c      print*, ' number of characters = ',len_trim(geometry_yaml)
       do icol=1,len_trim(geometry_yaml)
@@ -578,7 +578,7 @@ c      filename_yaml = 'smac2d'//'_'//trim(geometry1)//'_'//
       filename_yaml = 'smac2d'//'_'//trim(geometry_yaml)//'_'//
      & trim(hostname)//'_'//trim(numprocs_txt)//'grids_'//
      & trim(ntmax_txt)//'iters_'//date_time//YAML_EXTENSION
-      print*
+      print*,''
       print*, 'Write yaml-formatted output to file'
       print*, '   string length:',len_trim(filename_yaml),' characters'
       print*, filename_yaml 
@@ -658,19 +658,19 @@ c find max grid values
 c check jkmax value in common.f to see if it is big enough
       if (jgridmax.gt.jkmax.or.kgridmax.gt.jkmax) then
        if (jgridmax.gt.jkmax) then
-        print*
+        print*,''
         print*, ' ERROR: jgridmax > jkmax'
         print*, '   jgridmax =',jgridmax,', jkmax =',jkmax
         print*, ' jgridmax must be less than or equal to jkmax'
        elseif (kgridmax.gt.jkmax) then
-        print*
+        print*,''
         print*, ' ERROR: kgridmax > jkmax'
         print*, '   kgridmax =',kgridmax,', jkmax =',jkmax
         print*, ' kgridmax must be less than or equal to jkmax'
        endif
-       print*
+       print*,''
        print*, ' Increase the value for jkmax in common.f and rerun.' 
-       print*
+       print*,''
        print*, ' Program is terminating.'
        call exit(0)
       endif
@@ -732,21 +732,21 @@ c determine x and y for subgrids and send to proper mpi ranks
 c+++++++++++++++++++++++++++++++
       if (nodeid.eq.0) then
 c+++++++++++++++++++++++++++++++
-       print*
+       print*,''
        print*, ' num_grids = ',num_grids
-       print*
+       print*,''
        print*, '          #       jgrid      kgrid'
        do 805 i=1,num_grids
        print*, i,jgrid(i),kgrid(i)
 805    continue
-       print*
+       print*,''
        print*, ' max jgrid = ',jgridmax
        print*, ' max kgrid = ',kgridmax
-       print*
+       print*,''
 
        do 810 i=1,num_grids
         allocate (xgrid(jgrid(i),kgrid(i)),ygrid(jgrid(i),kgrid(i)))
-        print*
+        print*,''
         print*, ' Reading subgrid number: ',i
         print*, '   jgrid(i) = ',jgrid(i)
         print*, '   kgrid(i) = ',kgrid(i)
@@ -757,7 +757,7 @@ c read from grid file
 
 c DEBUG1 check
         if (DEBUG1.and.i.eq.2) then
-         print*
+         print*,''
          print*, ' In smac2d.f/main, just after read(22,*):'
          print*, '  i,jgrid(i),kgrid(i) = ',i,jgrid(i),kgrid(i)
          print*, ' nodeid_dest  j   k    xgrid(jk)     ygrid(jk)'
@@ -794,7 +794,7 @@ c define node to which data will be sent
         node_out = i-1
 c DEBUG1 CHECK
         if (DEBUG1.and.i.eq.2) then
-         print*
+         print*,''
          print*, ' In smac2d.f/main -- from node 0 -- SENDs:'
          print*, ' i,jgrid(i),kgrid(i) =',i,jgrid(i),kgrid(i)
          print*, ' nodeid_dest  j   k      xgrid(jk)   ygrid(jk)'
@@ -828,7 +828,7 @@ c******************************
       call MPI_RECV(y,jmax*kmax,MPI_REAL8,0,nodeid+2,
      1  MPI_COMM_WORLD,stat,ierr)
       if (DEBUG1.and.nodeid.eq.1) then
-       print*
+       print*,''
        print*, ' In smac2d.f/main -- RECVs:'
        print*, '   jmax,kmax = ',jmax,kmax
        print*, '   jgridmax,kgridmax = ',jgridmax,kgridmax
@@ -849,7 +849,7 @@ c******************************
 c******************************
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' >>> nodeid',nodeid,': deallocate xgrid,ygrid'
       endif
 
@@ -890,14 +890,14 @@ c ... time deltas
      &    endTimeSendSubgrids - startTimeSendSubgrids
         timeSolver = 
      &    endTimeSolver - startTimeSolver
-        print*
+        print*,''
         write(*,1000) timeInitialize
 1000    format(' TIMER: initialization (sec): ',1pe12.5)
         write(*,1005) timeSendSubgrids
 1005    format(' TIMER: send subgrids (sec): ',1pe12.5)
         write(*,1010) timeSolver
 1010    format(' TIMER: final solver time (sec) = ',1pe12.5)
-        print*
+        print*,''
 c write to yaml
         cputiter = timeSolver/float(ntmax)
         cpuitpt = cputiter/float(itotalOrigPoints)
@@ -951,7 +951,7 @@ c       print corners of the grid
 c
       __REAL xorig(jkl),yorig(jkl),zorig(jkl)
 
-      print*
+      print*,''
       print*, '++++++++ In sub. CORNERS ++++++++++++++'
       print*, ' Node ',nodeid
       print*, ' jdim,kdim,ldim = ',jdim,kdim,ldim
@@ -996,7 +996,7 @@ c      print*, ' 6. ',xorig(index1),yorig(index1),zorig(index1)
       print*, ' 6. xyz(jmx,kmx,lmx): ',xorig(index1),yorig(index1),
      1 zorig(index1)
 
-      print*
+      print*,''
       print*, '+++++++++++++++++++++++++++++++++++++++++++++++'
 
       return
@@ -1051,14 +1051,14 @@ c      DEBUG1 = .true.
 
 c
       if (DEBUG1.and.nodeid.eq.1) then
-       print*
+       print*,''
        print*, ' nodeid  j   k      x         y'
        do 1103 k=16,17
        do 1103 j=31,34
         write(*,1107) nodeid,j,k,x(j,k),y(j,k)
 1107    format(3i3,1p2e15.7)
 1103   continue
-       print*
+       print*,''
 c       print*, ' stop: in smac2d.f/solve 10'
 c       stop 'stop: in smac2d.f/solve 10'
       endif
@@ -1086,7 +1086,7 @@ c-----
 
       if (DEBUG.and.(nodeid.eq.0)) then
       icount = 0 
-      print*
+      print*,''
       print*, '  node  i   j   k   dq1        dq2        dq3'
       print*,' This is test 130 in smac2d.f/solve'
       itest = 130 
@@ -1096,8 +1096,8 @@ c-----
        write(*,4005) itest,nodeid,icount,j,k,dq(j,k,1),dq(j,k,2),
      &  dq(j,k,3)
 4030  continue
-      print*
-      print*
+      print*,''
+      print*,''
       endif
 
 c-----
@@ -1112,7 +1112,7 @@ c  walls, inflow/outflow, wake-cut, etc.
 
       if (DEBUG.and.(nodeid.eq.0)) then
       icount = 0 
-      print*
+      print*,''
       print*, '  node  i   j   k   dq1        dq2        dq3'
       print*,' This is test 120 in smac2d.f/solve'
       itest = 120 
@@ -1122,8 +1122,8 @@ c  walls, inflow/outflow, wake-cut, etc.
        write(*,4005) itest,nodeid,icount,j,k,dq(j,k,1),dq(j,k,2),
      &  dq(j,k,3)
 4020  continue
-      print*
-      print*
+      print*,''
+      print*,''
       endif
 
 c-----
@@ -1137,7 +1137,7 @@ c all nodes compute metrics (rtxy) separately
 
       if (DEBUG.and.(nodeid.eq.0)) then
       icount = 0 
-      print*
+      print*,''
       print*, '  node  i   j   k   dq1        dq2        dq3'
       print*,' This is test 110 in smac2d.f/solve'
       itest = 110 
@@ -1147,8 +1147,8 @@ c all nodes compute metrics (rtxy) separately
        write(*,4005) itest,nodeid,icount,j,k,dq(j,k,1),dq(j,k,2),
      &  dq(j,k,3)
 4010  continue
-      print*
-      print*
+      print*,''
+      print*,''
       endif
 
 c-----
@@ -1164,7 +1164,7 @@ c-----
 
       if (DEBUG.and.(nodeid.eq.0)) then
       icount = 0 
-      print*
+      print*,''
       print*, '  node  i   j   k   dq1        dq2        dq3'
       print*,' This is test 100 in smac2d.f/solve'
       itest = 100 
@@ -1176,8 +1176,8 @@ c-----
 4005   format(i4,3x,i4,3x,i3,2x,i3,2x,i3,1x,1pe10.3,1x,1pe10.3,
      &  1x,1pe10.3)
 4000  continue
-      print*
-      print*
+      print*,''
+      print*,''
       endif
 
 c-----
@@ -1194,19 +1194,19 @@ c sync all nodes
 
 c start marching equations in time
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'Number of time steps ntmax = ',ntmax
-       print*
+       print*,''
       endif
 
       do 100 ntime=1,ntmax
 
        if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' **** Time step ',ntime,' of ',ntmax,' time steps'
         print*, ' q(32,1,X)=',q(32,1,1),q(32,1,2),q(32,1,3)
         print*, ' q(32,2,X)=',q(32,2,1),q(32,2,2),q(32,2,3)
-        print*
+        print*,''
        endif
 
          nt = nt + 1
@@ -1245,7 +1245,7 @@ c-----start-----
 c node 0, j=1
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         do 7990 k=1,kmax
          print*, ' nodeid0,j=1,q123 = ',
      &    k,q(1,k,1),q(1,k,2),q(1,k,3)
@@ -1257,7 +1257,7 @@ c node 0, j=jmax
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         do 8000 k=1,kmax
          print*, 'nodeid0,jmax,q123 = ',
      &    k,q(jmax,k,1),q(jmax,k,2),q(jmax,k,3)
@@ -1269,7 +1269,7 @@ c node 1, j=2
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.1) then
-       print*
+       print*,''
        do 8010 k=1,kmax
         print*, 'nodeid1,j_2,k_1tokmax = ',
      &   k,q(2,k,1),q(2,k,2),q(2,k,3)
@@ -1281,7 +1281,7 @@ c node 1, j=jmax
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.1) then
-       print*
+       print*,''
        do 8015 k=1,kmax
         print*, 'nodeid1, jmax, k_1tokmax = ',
      &   k,q(jmax,k,1),q(jmax,k,2),q(jmax,k,3)
@@ -1292,7 +1292,7 @@ c-----
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        do 8020 j=1,jmax
         print*, 'nodeid0, j_1tojmax, k_1 = ',
      &   j,q(j,1,1),q(j,1,2),q(j,1,3)
@@ -1303,7 +1303,7 @@ c-----
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        do 8025 j=1,jmax
         print*, 'nodeid0, j_1tojmax, k_1 = ',
      &   j,q(j,1,1),q(j,1,2),q(j,1,3)
@@ -1314,7 +1314,7 @@ c-----
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.1) then
-       print*
+       print*,''
        do 8030 j=1,jmax
         print*, 'nodeid1, j_1tojmax, k_1 = ',
      &   j,q(j,1,1),q(j,1,2),q(j,1,3)
@@ -1325,7 +1325,7 @@ c-----
       call flush(istdout)
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       if (DEBUG.and.nodeid.eq.1) then
-       print*
+       print*,''
        do 8035 j=1,jmax
         print*, 'nodeid1, j_1tojmax, k_kmax = ',
      &   j,q(j,kmax,1),q(j,kmax,2),q(j,kmax,3)
@@ -1448,7 +1448,7 @@ c change month to numbers
       endif
 
       if (DEBUG) then
-        print*
+        print*,''
         print*, 'Date parameters:'
         print*, 'year_num = ',year_num
         print*, 'month_text = ',month_text
@@ -1456,7 +1456,7 @@ c change month to numbers
         print*, 'day_num = ',day_num
         print*, 'time = ',time
         print*, 'hostname = ',hostname
-        print*
+        print*,''
       endif
 
       date_calendar = year_num//'_'//month_num//'_'//day_num
@@ -1503,9 +1503,9 @@ c
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' >>> In sub geom.f/iterout. Nodeid = ',nodeid 
-       print*
+       print*,''
       endif
 
 c-----
@@ -1550,11 +1550,11 @@ c ... cl due to pressure only
       clp = (2.*fyp*ca - 2.*fxp*sa)/chord
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' nodeid,fxp,fyp,fxs,fys = ',nodeid,fxp,fyp,fxs,fys
        print*, ' nodeid,ca,sa,chord = ',nodeid,ca,sa,chord
        print*, ' Node',nodeid,': cd,cl,cm = ',cd,cl,cm
-       print*
+       print*,''
        call flush(6)
        call flush(istdout)
 c       print*, 'stop: in smac2d.f/iterout for forces'
@@ -1664,7 +1664,7 @@ c  max values
             nmxr = node_in + 1   ! zone, not the nodeid
          endif
          if (DEBUG) then
-          print*
+          print*,''
           write(*,500) node_in,resmax,resmax0,rmax,tmax
 500       format(/' In iterout: node_in,resmax,resmax0,rmax,tmax = ',
      &      i3,1p4e15.7)
@@ -1711,7 +1711,7 @@ c gather info from all nodes and print out max and total values
         niter = 1
 
         if (DEBUG) then
-         print*
+         print*,''
          print*, ' Values to print from  Node 0:'
          print*, ' niter,ifreq,nt = ',niter,ifreq,nt
         endif
@@ -1727,7 +1727,7 @@ c gather info from all nodes and print out max and total values
            print*, ' resmax,resmax0,rmax = ',resmax,resmax0,rmax
            print*, ' jmxr,kmxr,nmxr = ',jmxr,kmxr,nmxr
            print*, ' dmax,tmax = ',dmax,tmax
-           print*
+           print*,''
           endif
          endif
 100      format(/'   nt   resmax     divmax     turres     j   k  nz',

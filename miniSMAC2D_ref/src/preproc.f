@@ -110,9 +110,9 @@ c assign values to x and y for l=2,3
 10     continue
 c
       if (DEBUG) then
-        print*
+        print*,''
         print*, '=================================================='
-        print*
+        print*,''
         print*, ' In sub readgo, grid corner values are:'
         print*, ' jdim,kdim,ldim,lindex = ',jdim,kdim,ldim,lindex
         print*, ' 1. xyz(1,1,1) = ',
@@ -133,7 +133,7 @@ c
         print*, ' 6. xyz(jmx,kmx,lmx) = ',
      1    x(jdim,kdim,ldim),y(jdim,kdim,ldim),z(jdim,kdim,ldim)
 
-        print*
+        print*,''
         print*, '=================================================='
       endif
 c
@@ -165,9 +165,9 @@ c switch k and l dimensions
 c      DEBUG = .true.
       
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' >> In sub. switchzy in preproc.f'
-        print*
+        print*,''
       endif
 c
 c
@@ -197,10 +197,10 @@ c
         z(index1) = ztemp(j,k,l)
 12    continue
 c
-      print*
+      print*,''
       print*,'  Final block dimensions after call switchzy are: ',
      1 jdim,kdim,ldim
-      print*
+      print*,''
 c      
       return
       end
@@ -250,7 +250,7 @@ c      z(index2)=z(index1)
 c Bump kdim
 c      kdim=kdim+2
 c
-      print *
+      print *,''
       print *,'  Additional k = 1 & k =',kdim,
      1 ' planes defined for original grid'
 c
@@ -276,11 +276,11 @@ c
      1 y(jdim,kdim,ldim),z(jdim,kdim,ldim)
 c
 c
-      print *
+      print *,''
       print *,'Block corner locations with/without surrounding points:'
-      print *
+      print *,''
       print *,'     Jmax, Kmax, Lmax = ',jdim, kdim, ldim
-      print *
+      print *,''
       print *,'               6____________________7'
       print *,'               /|                 /|'
       print *,'          (K) / |                / |'
@@ -294,7 +294,7 @@ c
       print *,'           |/                 |/'
       print *,'         1 |------>-----------/ 4'
       print *,'                   (J)'
-      print *
+      print *,''
       print *,'  point  j   k   l      x          y          z'
       print *,' ------ --- --- --- ---------- ---------- ----------'
 c
@@ -371,7 +371,7 @@ c jmid,kmid,lmax
      2 y(jmid,kmid,ldim),
      3 z(jmid,kmid,ldim)
 c
-      print *
+      print *,''
       print *,' POINT VALUES ALONG BLOCK EDGES'
       print *,'         j   k   l      x          y          z'
       print *,' ------ --- --- --- ---------- ---------- ----------'
@@ -395,7 +395,7 @@ c
      3 z(j,k,l)
 11    continue
 c
-      print *
+      print *,''
       print *,'All points from 4 to 3:'
       do 12 j=jdim,jdim
       do 12 k=1,1
@@ -406,7 +406,7 @@ c
      3 z(j,k,l)
 12    continue
 c
-      print *
+      print *,''
       print *,'All points from 1 to 4:'
       do 13 j=1,jdim
       do 13 k=1,1
@@ -417,7 +417,7 @@ c
      3 z(j,k,l)
 13    continue
 c
-      print *
+      print *,''
       print *,'All points from 1 to 5:'
       do 14 j=1,1
       do 14 k=1,kdim
@@ -428,7 +428,7 @@ c
      3 z(j,k,l)
 14    continue
 c
-      print *
+      print *,''
       print *,'All points from 2 to 6:'
       do 15 j=1,1
       do 15 k=1,kdim
@@ -439,7 +439,7 @@ c
      3 z(j,k,l)
 15    continue
 c
-      print *
+      print *,''
       print *,'All points from 3 to 7:'
       do 16 j=jdim,jdim
       do 16 k=1,kdim
@@ -449,7 +449,7 @@ c
      2 y(j,k,l),
      3 z(j,k,l)
 16    continue
-      print *
+      print *,''
       print *,'All points from 4 to 8:'
       do 17 j=jdim,jdim
       do 17 k=1,kdim
@@ -460,7 +460,7 @@ c
      3 z(j,k,l)
 17    continue
 c
-      print *
+      print *,''
       print *,'All points from 6 to 7:'
       do 18 j=1,jdim
       do 18 k=kdim,kdim
@@ -471,7 +471,7 @@ c
      3 z(j,k,l)
 18    continue
 c
-      print *
+      print *,''
       print *,'All points from 5 to 8:'
       do 19 j=1,jdim
       do 19 k=kdim,kdim
@@ -482,7 +482,7 @@ c
      3 z(j,k,l)
 19    continue
 c
-      print *
+      print *,''
       print *,'All points from 5 to 6:'
       do 20 j=1,1
       do 20 k=kdim,kdim
@@ -492,7 +492,7 @@ c
      2 y(j,k,l),
      3 z(j,k,l)
 20    continue
-      print *
+      print *,''
       print *,'All points from 8 to 7:'
       do 21 j=jdim,jdim
       do 21 k=kdim,kdim
@@ -628,11 +628,11 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-100   format( //,3x,'Grid',5x,'Jmax',3x,'Kmax',3x,'Lmax',6x,'Total')    |
-110   format(a10,2x,i4,3x,i4,3x,i4,3x,i8)                               |
-115   format(/,'Total number of grid points = ',i10,//,                 |
-     1 'Total number of final zones (or subgrids) = ',i3,//,            |
-     2 'Average number of grid points/grid = ',f10.2,//)                |
+100   format( //,3x,'Grid',5x,'Jmax',3x,'Kmax',3x,'Lmax',6x,'Total')    
+110   format(a10,2x,i4,3x,i4,3x,i4,3x,i8)                               
+115   format(/,'Total number of grid points = ',i10,//,                 
+     1 'Total number of final zones (or subgrids) = ',i3,//,            
+     2 'Average number of grid points/grid = ',f10.2,//)                
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -705,7 +705,7 @@ c original grid dimensions
       kmax_compout = kdim
       lmax_compout = ldim
 
-      write(6,5) numprocs
+      write(6,*) numprocs
       write(6,*) '                                                     '
 c Calculate grid points per processor node
       gppproc=isum/numprocs
@@ -937,34 +937,34 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-5     format(' >> Number of processors to be used: ',i6)                |
-25    format(' For zone ',i3,' use ',i3,' processors.')                 |
-40    format(//,' Parallel processing parameters:',//,                  |
-     1'    Number of processors to be used: ',i9,/)                     |
-42    format(/,' Number of grid points in zone ',i3,': ',i9)            |
-43    format(/' Total number of grid points over all grids: ',i9,/,     |
-     1'     Average number of grid points per grid: ',f9.1,/,           |
-     2'Average number of grid points per processor: ',f9.1,/)           |
-80    format(/,' User-specified processorss to be used = ',i5,/,        |
-     1' Nodes calculated to be used = ',i5,/)                           |
-100   format(//,' Is this ok? If not, you will be asked to enter',/     |
-     110x,'a different number of processors. Enter (y/n): ',$)          |
-200   format(' Zone = ',i3,', Total grid points = ',i9)                 |
-205   format(/,' Warning: ',i3,' grids will not fit optimally on ',     |
-     1i5,' processor(s)!',/)                                            |
-210   format(' Optimal grid points per processor = ',f15.1,/)           |
-295   format(/,' Zone',' Subzone',' Prc#','  Jmax','  Kmax','  Lmax',   |
-     1'  Points','   J-rel range','   K-rel range','   L-rel range')    |
-301   format(//,'==========================================='           |
-     1,/,' For mesh ',a,':',/)                                          |
-303   format(/,' Subgrids written to file GRID_DIVIDED_3D.G in PLOT3D fo|
-     1rmat.',/)                                                         |
-304   format(///,' Writing subgrids to file.',//)                       |
-333   format(i5,i6,i6,i6,i6,i6,i7,5x,i3,' to ',i3,4x,i3,' to ',i3,      |
-     14x,i3,' to ',i3)                                                  |
-433   format(i5,i6,i6,i6,i6,i6,i7,5x,i3,' to ',i3,4x,i3,' to ',i3,      |
-     14x,i3,' to ',i3)                                                  |
-660   format('     Enter choice (1-5): ',$)                             |
+5     format(' >> Number of processors to be used: ',i6)                
+25    format(' For zone ',i3,' use ',i3,' processors.')                 
+40    format(//,' Parallel processing parameters:',//,                  
+     1'    Number of processors to be used: ',i9,/)                     
+42    format(/,' Number of grid points in zone ',i3,': ',i9)            
+43    format(/' Total number of grid points over all grids: ',i9,/,     
+     1'     Average number of grid points per grid: ',f9.1,/,           
+     2'Average number of grid points per processor: ',f9.1,/)           
+80    format(/,' User-specified processorss to be used = ',i5,/,        
+     1' Nodes calculated to be used = ',i5,/)                           
+100   format(//,' Is this ok? If not, you will be asked to enter',/     
+     110x,'a different number of processors. Enter (y/n): ')          
+200   format(' Zone = ',i3,', Total grid points = ',i9)                 
+205   format(/,' Warning: ',i3,' grids will not fit optimally on ',     
+     1i5,' processor(s)!',/)                                            
+210   format(' Optimal grid points per processor = ',f15.1,/)           
+295   format(/,' Zone',' Subzone',' Prc#','  Jmax','  Kmax','  Lmax',   
+     1'  Points','   J-rel range','   K-rel range','   L-rel range')    
+301   format(//,'==========================================='           
+     1,/,' For mesh ',a,':',/)                                          
+303   format(/,' Subgrids written to file GRID_DIVIDED_3D.G in PLOT3D fo
+     1rmat.',/)                                                         
+304   format(///,' Writing subgrids to file.',//)                       
+333   format(i5,i6,i6,i6,i6,i6,i7,5x,i3,' to ',i3,4x,i3,' to ',i3,      
+     14x,i3,' to ',i3)                                                  
+433   format(i5,i6,i6,i6,i6,i6,i7,5x,i3,' to ',i3,4x,i3,' to ',i3,      
+     14x,i3,' to ',i3)                                                  
+c660   format('     Enter choice (1-5): ',$)                             
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -1014,9 +1014,9 @@ c
 c      DEBUG = .true.
 c
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' >>> In preproc.f/link_overlap <<<'
-       print*
+       print*,''
        print*, ' ipnum(1), ipnum(2) = ',ipnum(1),ipnum(2)
        print*, ' idimj,idimk,idiml = ',idimj,idimk,idiml
        print*, ' numprocs = ',numprocs
@@ -1475,10 +1475,10 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-15    format(2x,i4,2x,i5,8(1x,i5))                                      |
-540   format('c This file corresponds to file bcpzn.dat for 3D codes.   |
-     1',/,                                                              |
-     2'c Zone#  J_beg J_end J_inc K_beg K_end K_inc L_beg L_end L_inc') |
+15    format(2x,i4,2x,i5,8(1x,i5))                                      
+540   format('c This file corresponds to file bcpzn.dat for 3D codes.   
+     1',/,                                                              
+     2'c Zone#  J_beg J_end J_inc K_beg K_end K_inc L_beg L_end L_inc') 
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -1639,11 +1639,11 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-5     format('c This file corresponds to file bcpzn.dat for 2D codes.   |
-     1',/,                                                              |
-     2'c first line is target (recipient); next line is base (donor)',/,|
-     3'c Zone#  J_beg J_end J_inc K_beg K_end K_inc')                   |
-60    format(2x,i4,2x,i5,5(1x,i5))                                      |
+5     format('c This file corresponds to file bcpzn.dat for 2D codes.   
+     1',/,                                                              
+     2'c first line is target (recipient); next line is base (donor)',/,
+     3'c Zone#  J_beg J_end J_inc K_beg K_end K_inc')                   
+60    format(2x,i4,2x,i5,5(1x,i5))                                      
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -1731,7 +1731,7 @@ c
 10    continue    
 c
 c calculate the min(surf/vol)
-      write(6,*) '                                                     ' 
+      write(6,*) '                                                     '
       write(6,*) '                                                     '
       write(6,*) ' Finding min(surf/vol) for:                          '
       write(6,*) '      Jmax = ',jmaxx
@@ -1798,23 +1798,23 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-5     format(/,' ITAG',7x,'J',7x,'K',7x,'L',/                           |
-     1         ' ----',6x,'---',5x,'---',5x,'---')                      |
-25    format(i5,6x,i3,5x,i3,5x,i3)                                      |
-30    format(/,' itag',7x,'surf/vol',5x,'min(surf/vol)')                |
-40    format(i4,5x,f11.6,5x,f11.6)                                      |
-50    format(5x,'min(surf/vol) = ',f11.6)                               |
-60    format(5x,'N/Jmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid |
-     1in J direction')                                                  |
-70    format(5x,'M/Kmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid |
-     1in K direction')                                                  |
-80    format(5x,'P/Lmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid |
-     1in L direction')                                                  |
-100   format(/,                                                         |
-     1'              Subgrids needed for zone ',i5,': ',i5,/            |
-     2'       Number of subgrids currently allowed : ',i5,/             |
-     3'              Max number of subgrids needed : ',i5,//            |
-     3'   Change max_subs in preproc.f/min_surf_vol_ratio to ',i5/)     |
+5     format(/,' ITAG',7x,'J',7x,'K',7x,'L',/                           
+     1         ' ----',6x,'---',5x,'---',5x,'---')                      
+25    format(i5,6x,i3,5x,i3,5x,i3)                                      
+30    format(/,' itag',7x,'surf/vol',5x,'min(surf/vol)')                
+40    format(i4,5x,f11.6,5x,f11.6)                                      
+50    format(5x,'min(surf/vol) = ',f11.6)                               
+60    format(5x,'N/Jmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid 
+     1in J direction')                                                  
+70    format(5x,'M/Kmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid 
+     1in K direction')                                                  
+80    format(5x,'P/Lmax = ',i4,' /',i4,' ==> approx. ',i3,' pts/subgrid 
+     1in L direction')                                                  
+100   format(/,                                                         
+     1'              Subgrids needed for zone ',i5,': ',i5,/            
+     2'       Number of subgrids currently allowed : ',i5,/             
+     3'              Max number of subgrids needed : ',i5,//            
+     3'   Change max_subs in preproc.f/min_surf_vol_ratio to ',i5/)     
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -2043,14 +2043,14 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-5     format(5x,'J-remainder = ',i3)                                    |
-10    format(5x,'K-remainder = ',i3)                                    |
-15    format(5x,'L-remainder = ',i3)                                    |
-120   format(/,' Grid #',4x,'Jcube',4x,'Kcube',4x,'Lcube',4x,'Jmax',4x, |
-     1 'Kmax',4x,'Lmax',4x,'Total',/,                                   |
-     2         '-------',4x,'-----',4x,'-----',4x,'-----',4x,'----',4x, |
-     3 '----',4x,'----',3x,'-------')                                   |
-130   format(i6,5x,i4,5x,i4,5x,i4,5x,i4,4x,i4,4x,i4,2x,i8)              |
+5     format(5x,'J-remainder = ',i3)                                    
+10    format(5x,'K-remainder = ',i3)                                    
+15    format(5x,'L-remainder = ',i3)                                    
+120   format(/,' Grid #',4x,'Jcube',4x,'Kcube',4x,'Lcube',4x,'Jmax',4x, 
+     1 'Kmax',4x,'Lmax',4x,'Total',/,                                   
+     2         '-------',4x,'-----',4x,'-----',4x,'-----',4x,'----',4x, 
+     3 '----',4x,'----',3x,'-------')                                   
+130   format(i6,5x,i4,5x,i4,5x,i4,5x,i4,4x,i4,4x,i4,2x,i8)              
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -2140,7 +2140,7 @@ c   j-direction
      1 *l_subgrid(index)
 20    continue 
       if(jflag.eq.1) then 
-       write(6,*) '   Subtracted common faces in J-direction.          ' 
+       write(6,*) '   Subtracted common faces in J-direction.          '
       endif
 c   k-direction
       kflag=0 
@@ -2158,7 +2158,7 @@ c   k-direction
        endif
 30    continue
       if(kflag.eq.1) then 
-       write(6,*) '   Subtracted common faces in K-direction.          ' 
+       write(6,*) '   Subtracted common faces in K-direction.          '
       endif
 c   l-direction
       lflag=0
@@ -2182,7 +2182,7 @@ c   l-direction
        endif
 35    continue
       if(lflag.eq.1) then 
-       write(6,*) '   Subtracted common faces in L-direction.          ' 
+       write(6,*) '   Subtracted common faces in L-direction.          '
       endif
 c      
       write(6,40) ipoints_orig,ipoints_calc
@@ -2202,8 +2202,8 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-40    format(5x,'...Original no. of points in this zone = ',i10,/,      |
-     15x,'...Calculated no. of points in this zone = ',i10)             |
+40    format(5x,'...Original no. of points in this zone = ',i10,/,      
+     15x,'...Calculated no. of points in this zone = ',i10)             
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -2349,23 +2349,23 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-1     format(/,' ERROR: Subroutine GLOBAL_INDICES',/                    |
-     1'     Array dimensions exceeded',/                                |
-     2'         idim_max = ',i4,/                                       |
-     3'         max_subs = ',i4,/                                       |
-     4'     Adjust parameter statement for max_subs.')                  |
-6     format(//,' -----------------------------------------',/          |
-     1' Local and Global Indices for Each Subgrid',/                    |
-     2' -----------------------------------------')                     |
-12    format(//' Summary of zone dimensions:',//                        |
-     1'  Zone   jcube_max  kcube_max  lcube_max',/                      |
-     2' ------  ---------  ---------  ---------')                       |
-13    format(i6,i10,2i11)                                               |
-14    format(//,' > Parameter statement needs to be updated:',/         |
-     1'       Current values: max_subs = ',i5,/                         |
-     2' Suggest changing to : max_subs = ',i5,/)                        |
-21    format(' Zone =',i4,', Meshname = ',a)                            |
-26    format(i5,4i6,3i5,2i6,3i6)                                        |  
+1     format(/,' ERROR: Subroutine GLOBAL_INDICES',/                    
+     1'     Array dimensions exceeded',/                                
+     2'         idim_max = ',i4,/                                       
+     3'         max_subs = ',i4,/                                       
+     4'     Adjust parameter statement for max_subs.')                  
+6     format(//,' -----------------------------------------',/          
+     1' Local and Global Indices for Each Subgrid',/                    
+     2' -----------------------------------------')                     
+12    format(//' Summary of zone dimensions:',//                        
+     1'  Zone   jcube_max  kcube_max  lcube_max',/                      
+     2' ------  ---------  ---------  ---------')                       
+13    format(i6,i10,2i11)                                               
+14    format(//,' > Parameter statement needs to be updated:',/         
+     1'       Current values: max_subs = ',i5,/                         
+     2' Suggest changing to : max_subs = ',i5,/)                        
+21    format(' Zone =',i4,', Meshname = ',a)                            
+26    format(i5,4i6,3i5,2i6,3i6)                                        
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -2423,11 +2423,11 @@ c
 c      DEBUG = .true.
 c
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' >>> In preproc.f/write_subgrids <<<'
         print*, '  ioverlap = ',ioverlap
         print*, '  jklmax = ',jklmax
-        print*
+        print*,''
       endif
 c
 c      jklmax=jdim*kdim*ldim
@@ -2462,7 +2462,7 @@ c write header
 
 c
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' number_of_processors = ',numprocs
         print*, ' ioverlap = ',ioverlap
         print*, ' jklmax = ',jklmax
@@ -2552,9 +2552,9 @@ c construct subgrids for the zone just read in
 c
       itotal=idimj*idimk*idiml
 c
-      print*
+      print*,''
       print*, ' Writing to GRID_DIVIDED_3D.G:'
-      print*
+      print*,''
 c
 c loop over sub-blocks of grids
       num_grid_points = 0
@@ -2570,9 +2570,9 @@ c
        write(6,705) index_ref,itotal,nz,i_total_count,numprocs,ioverlap
 c
 c
-      print*
+      print*,''
       print*, ' >>> Calling get_global_index'
-      print*
+      print*,''
 
        call get_global_index
      1 (nz,j,k,l,1,1,1,
@@ -2623,31 +2623,31 @@ c
 30    continue  
 
 
-      print*
+      print*,''
       print*, ' Total number of grid points in GRID_DIVIDED_3D.G: ',
      1 num_grid_points
-      print*
+      print*,''
 c
 c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-8     format(3i10)                                                      |
-700   format(//,' Constructing subgrids. reading from unit ',i3,/)      |
-705   format(                                                           |
-     1' Constructing subgrid #',i5,' of',i5,' subgrids in zone ',i4,/   |
-     2'   Total count: subgrid #',i4,' of ',i4,' subgrids',/            |
-     3'   Grid cells overlap',i2,' cell widths on grid boundaries.')    |
-800   format(/,                                                         |
-     1         ' ---------------------------------------------------',/ |
-     2         ' Reading original grid file, zone #',i5)                |
-802   format(  '  This grid does not contain IBLANK data.',/            |
-     1         ' ---------------------------------------------------',/)|
-900   format(                                                           |
-     1'   nz = ',i4,' jcube = ',i4,' kcube = ',i4,' lcube = ',i4,/      |
-     2'       jp3d_min = ',i4,'  jp3d_max = ',i4,/                      |
-     3'       kp3d_min = ',i4,'  kp3d_max = ',i4,/                      |
-     4'       lp3d_min = ',i4,'  lp3d_max = ',i4)                       |
+8     format(3i10)                                                      
+700   format(//,' Constructing subgrids. reading from unit ',i3,/)      
+705   format(                                                           
+     1' Constructing subgrid #',i5,' of',i5,' subgrids in zone ',i4,/   
+     2'   Total count: subgrid #',i4,' of ',i4,' subgrids',/            
+     3'   Grid cells overlap',i2,' cell widths on grid boundaries.')    
+800   format(/,                                                         
+     1         ' ---------------------------------------------------',/ 
+     2         ' Reading original grid file, zone #',i5)                
+802   format(  '  This grid does not contain IBLANK data.',/            
+     1         ' ---------------------------------------------------',/)
+900   format(                                                           
+     1'   nz = ',i4,' jcube = ',i4,' kcube = ',i4,' lcube = ',i4,/      
+     2'       jp3d_min = ',i4,'  jp3d_max = ',i4,/                      
+     3'       kp3d_min = ',i4,'  kp3d_max = ',i4,/                      
+     4'       lp3d_min = ',i4,'  lp3d_max = ',i4)                       
 901   format(
      1'Local block dimensions: ',i4,' x ',i4,' x ',i4,/
      2)
@@ -2763,7 +2763,7 @@ c set indices
 
 c
       if (DEBUG) then
-        print*
+        print*,''
         print*, ' In sub preproc.f/get_global_index:'
         print*, '   numprocs = ',numprocs
         print*, '   index = ',index
@@ -2775,7 +2775,7 @@ c
         print*, '   idimj,idimk,idiml = ',idimj,idimk,idiml
         print*, '   jdim,kdim,ldim = ',jdim,kdim,ldim
         print*, '   jdo,kdo,ldo = ',jdo,kdo,ldo
-        print*
+        print*,''
         print*, 'Max global indices for this subgrid:'
         print*, index,jindex_global(index),kindex_global(index),
      1    lindex_global(index)
@@ -2844,14 +2844,14 @@ c
       if (DEBUG) then
         print*, ' j1,k1,l1 = ',j1,k1,l1
         print*, ' j2,k2,l2 = ',j2,k2,l2
-        print*
+        print*,''
       endif
 
 c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-10    format('      ioverlap = ',i10)                                   |
+10    format('      ioverlap = ',i10)                                   
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c
@@ -3083,21 +3083,21 @@ c
 c format statements
 c
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
-600   format(/,                                                         |
-     1' ===========================================' ,/                 |
-     2' Writing the following data to file GRIDS2D',/                   |
-     3' Subgrid #',i4,' of ',i4,' total subgrids.',/                    |
-     4' Zone # :',i4,'     Subgrid index = ',i4,/                       |
-     5' File format: blanked formatted 2-D multiblock PLOT3D',/         |
-     6'     jmax_compout = ',i4,/                                       |
-     7'     kmax_compout = ',i4,/                                       |
-     8'     lmax_compout = ',i4,/                                       |
-     9'     subgrid location : j = 'i4,', k = ',i4,', l = ',i4,/        |
-     A'     ioverlap = ',i1,/                                           |
-     B'     dimensions: j = ',i4,'  to ',i4,/                           |
-     C'                 k = ',i4,'  to ',i4,/                           |
-     D'                 l = ',i4,'  to ',i4,/                           |
-     E' ===========================================')                   |
+600   format(/,                                                         
+     1' ===========================================' ,/                 
+     2' Writing the following data to file GRIDS2D',/                   
+     3' Subgrid #',i4,' of ',i4,' total subgrids.',/                    
+     4' Zone # :',i4,'     Subgrid index = ',i4,/                       
+     5' File format: blanked formatted 2-D multiblock PLOT3D',/         
+     6'     jmax_compout = ',i4,/                                       
+     7'     kmax_compout = ',i4,/                                       
+     8'     lmax_compout = ',i4,/                                       
+     9'     subgrid location : j = ',i4,', k = ',i4,', l = ',i4,/       
+     A'     ioverlap = ',i1,/                                           
+     B'     dimensions: j = ',i4,'  to ',i4,/                           
+     C'                 k = ',i4,'  to ',i4,/                           
+     D'                 l = ',i4,'  to ',i4,/                           
+     E' ===========================================')                   
 c---x----1----x----2----x----3----x----4----x----5----x----6----x----7--|
 c
 c

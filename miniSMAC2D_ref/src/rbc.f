@@ -134,9 +134,9 @@ c-----
 c  ... Test bcmain.dat boundary conditions
 c-----
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' Node ',nodeid,': testing ',nbcreg,' bcmain.dat bcs'
-       print*
+       print*,''
       endif
       do 36 nr=1,nbcreg
        if(ibcval(nr) .ge. 0 .and. ibcval(nr) .ne. 60 .and.
@@ -150,7 +150,7 @@ c-----
 c  ... Test for multiple boundary conditions applied to the same point
 c-----
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' Node ', nodeid,': testing for multiple bcs'
       endif
       call testbcflag(bcflag,jmax,kmax)
@@ -277,12 +277,12 @@ c skip comment lines in file
 400   continue
 
       if (nbcreg_o.eq.0) then
-       print*
+       print*,''
        print*, 'ERROR: no bcs found in file bcmain.dat_original'
        print*, '  This file must contain boundary conditions pertaining'
        print*, '  to the original grid.'
        print*, '  Program must terminate.'
-       print*
+       print*,''
        stop 'stop: no bcs in file bcmain.dat_original'
       endif
 
@@ -309,7 +309,7 @@ c convert any tabs into spaces
 40    continue
 
 
-      print*
+      print*,''
       write(istdout,46) filename,nbcreg_o
 46    format(' Number of BC regions read in from ',a20,' = ',i3)
       print*,'#   ibcval_o  nzbc_o  jbcb_o  jbce_o  kbcb_o  kbce_o'
@@ -319,7 +319,7 @@ c convert any tabs into spaces
      &             kbcb_o(nr),kbce_o(nr)
 77     format(i2,'. ',i7,5i8)
 74    continue
-      print*
+      print*,''
 
 c close bcmain.dat_original
       close(49)
@@ -341,7 +341,7 @@ c if -2
 81    continue
 
 c write original boundary conditions with actual indices
-      print*
+      print*,''
       write(istdout,47) filename,nbcreg_o
 47    format(' Re-indexed (no neg indices): Number of BC regions from ',
      &a20,' = ',i3)
@@ -350,7 +350,7 @@ c write original boundary conditions with actual indices
        write(*,77) nr,ibcval_o(nr),nzbc_o(nr),jbcb_o(nr),jbce_o(nr),
      &             kbcb_o(nr),kbce_o(nr)
 75    continue
-      print*
+      print*,''
 
 c+++++++++++++++++++++++++
       endif
@@ -402,7 +402,7 @@ c  the original grid's bcmain.dat_original
 c++++++++++++++++++++++++
       if (DEBUG.and.nodeid.eq.0) then
 c++++++++++++++++++++++++
-      print*
+      print*,''
       print*, '  i  jmaxx(i)  kmaxx(i)'
       do 250 i=1,numprocs
        write(*,252) i,jmaxx(i),kmaxx(i)
@@ -415,9 +415,9 @@ c++++++++++++++++++++++++
 c++++++++++++++++++++++++
       if (DEBUG.and.nodeid.eq.0) then
 c++++++++++++++++++++++++
-      print*
+      print*,''
       print*,' In rbcmain: idimj,idimk,idiml = ',idimj,idimk,idiml
-      print*
+      print*,''
       print*,' Global indices without overlap'
       print*,'  j   k   index   jindex_g  kindex_g  lindex_g'
       print*,'--- ---   -----   --------  --------  --------'
@@ -464,7 +464,7 @@ c write header
       write(46,5) filename_new
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' jmax_o, kmax_o = ',jmax_o,kmax_o
        print*, ' j   k    index   j1   j2   k1   k2'
        print*, '--- ---   -----   --   --   --   --'
@@ -543,8 +543,8 @@ c ... if jbcb_o(nr) lies within and jbce_o(nr) is outside
         jsuccess = 2
 
 c ... if jbcb_o(nr) lies outside and jbce_o(nr) is inside
-       elseif (jbcb_o(nr).lt.j1.and.jbce_o(nr).le.j2.
-     & and.jbce_o(nr).gt.j1) then
+       elseif (jbcb_o(nr).lt.j1.and.jbce_o(nr).le.j2
+     & .and.jbce_o(nr).gt.j1) then
         jb = 1
         je = jbce_o(nr) - j1 + 1 
         jvalid = 1
@@ -610,7 +610,7 @@ c ...
       endif
 
       if (DEBUG) then
-       print*
+       print*,''
        write(istdout,470) nr,jbcb_o(nr),jbce_o(nr),kbcb_o(nr),kbce_o(nr)
 470    format(' === nr,jbcb_o,jbce_o,kbcb_o,kbce_o: ',5i5)
        write(istdout,471) j1,j2,k1,k2
@@ -638,17 +638,17 @@ c set flag for first (top) surface (1) or second (bottom) surface (2)
          iflag_wake_cut_surface = iflag_wake_cut_surface + 1 
        else
          bc_string = 'ERROR'
-         print*
+         print*,''
          print*, ' ERROR: invalid value for bc_string in preproc.f'
          print*, '   Examine file bcmain.dat_original'
          print*, '   Currently, valid values for ibcval are'
          print*, '     0 - no-slip wall'
-	print*, '     25 - c-grid outer boundary w/ point vortex'
+         print*, '     25 - c-grid outer boundary w/ point vortex'
          print*, '    31 - outflow boundary'
          print*, '    60 - c-grid wake cut'
-         print*
+         print*,''
          print*, ' Program is terminating'
-         print*
+         print*,''
          call exit(1)
        endif
        write(46,495) bc_string
@@ -677,32 +677,32 @@ c if wake cut boundary, save zones to which they apply
         if (iflag_wake_cut_surface.eq.1) then
          isurface_1_bc_count = isurface_1_bc_count + 1
          if (isurface_1_bc_count.gt.isurface_bc_max) then
-          print*
+          print*,''
           print*, ' ERROR: isurface_1_bc_count > isurface_bc_max in rbc.
      &f/rbcmain'
           print*, ' isurface_1_bc_count =',isurface_1_bc_count
           print*, ' isurface_bc_max =',isurface_bc_max
           print*, '  Increase the value for parameter isurface_bc_max in
      & rbc.f/rbcmain'
-          print*
+          print*,''
           print*, ' Program terminating.'
-          print*
+          print*,''
           stop 'stop: isurface_1_bc_count > isurface_bc_max in rbc.f/rbc
      &main'
          endif
         else if (iflag_wake_cut_surface.eq.2) then
          isurface_2_bc_count = isurface_2_bc_count + 1
          if (isurface_2_bc_count.gt.isurface_bc_max) then
-          print*
+          print*,''
           print*, ' ERROR: isurface_2_bc_count > isurface_bc_max in rbc.
      &f/rbcmain'
           print*, ' isurface_2_bc_count =',isurface_2_bc_count
           print*, ' isurface_bc_max =',isurface_bc_max
           print*, '  Increase the value for parameter isurface_bc_max in
      & rbc.f/rbcmain'
-          print*
+          print*,''
           print*, ' Program terminating.'
-          print*
+          print*,''
           stop 'stop: isurface_2_bc_count > isurface_bc_max in rbc.f/rbc
      &main'
          endif
@@ -715,8 +715,7 @@ c let user know if nothing found for this boundary condition
 
       if (jfound.eq.0.or.kfound.eq.0) then
        write(istdout,*) ' '
-       write(istdout,*) 'ERROR: boundary condition not found in grid dom
-     &ain!'
+       write(istdout,*) 'ERROR: bdy condition not found in grid domain!'
        write(istdout,450) nr,ibcval(nr),jbcb_o(nr),jbce_o(nr),
      & kbcb_o(nr),kbce_o(nr)
 450    format(i4,'. ',5i5)
@@ -751,7 +750,7 @@ c  subgrids, read these boundary conditions into appropriate variables
       call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 
       if (DEBUG2) then
-       print*
+       print*,''
        call flush(6)
        call flush(istdout)
        print*, '======= node responding:',nodeid
@@ -830,7 +829,7 @@ c ... apply some human-readable description to the bc's
 c      and print to output file
       if (DEBUG1) then
        bc_string = ''
-       print*
+       print*,''
        print*, '        bc_string       ibcval nzbc jkbc jbcb jbce kbcb 
      & kbce'
        do 60 nr=1,nbcreg
@@ -875,13 +874,13 @@ c-----
 
 c check nwall with value for nwallmax in common.f
       if (nwall.gt.nwallmax) then
-       print*
+       print*,''
        print*, ' ERROR: nwall > nwallmax'
        print*, '  nwall =',nwall,', nwallmax = ',nwallmax
        print*, ' nwall must be less than or equal to nwallmax'
-       print*
+       print*,''
        print*, ' Increase the value for nwallmax in common.f and rerun.'
-       print*
+       print*,''
        print*, ' Program is terminating.'
        call exit(0)
       endif
@@ -889,7 +888,7 @@ c check nwall with value for nwallmax in common.f
       write(istdout,90) nwall
 90    format(/' Total of ',i3,' no-slip walls processed.')
 
-      print*
+      print*,''
       print*, ' No-slip walls for subgrids:'
       print*, '    #  nzbc  jkbc  jbcb  jbce  kbcb  kbce'
       do nw = 1,nwall
@@ -897,7 +896,7 @@ c check nwall with value for nwallmax in common.f
      1  kwall1(nw),kwall2(nw) 
 71    format(3x,i3,6i6)
       enddo
-      print*
+      print*,''
 
 c separate the c-grid wake cut bc's from the main bcs since wake cut bcs
 c  are handled separately via interpolation than the others 
@@ -906,11 +905,11 @@ c ... find out how many
 
 c skip if no C-grid wake bcs
       if (num_wake_bcs_total.eq.0) then 
-       print*
+       print*,''
        print*, 'No wake boundary conditions exist.'
        goto 600
       else
-       print*
+       print*,''
        print*, 'Number of wake boundary conditions:',num_wake_bcs_total
       endif
 
@@ -941,7 +940,7 @@ c  separate surface 1 bcs from surface 2 bcs
         if (icount.le.isurface_1_bc_count) then
 c ... 1st surface
          if (DEBUG.and.icount.eq.1) then
-           print*
+           print*,''
            print*, ' Wake bcs separated into surface 1 and surface 2:'
            print*, ' surf icnt  # ibcval nzbc jbcb jbce kbcb kbce jmx  k
      &max'
@@ -984,15 +983,15 @@ c ... 2nd surface
 2030      format(11i5)
          endif
         else
-         print*
+         print*,''
          print*, ' ERROR: icount out of bounds in rbc.f/rbcmain'
          print*, '   icount should be less than or equal to',
      &    num_wake_bcs_total  
          print*, '   current value of icount:',icount
-         print*
+         print*,''
          print*, ' isurface_1_bc_count =',isurface_1_bc_count
          print*, ' isurface_2_bc_count =',isurface_2_bc_count
-         print*
+         print*,''
          print*, ' Program terminating.'
          stop ' stop: icount out of bounds in rbc.f/rbcmain'
         endif
@@ -1002,9 +1001,9 @@ c ... 2nd surface
 c      stop 'stop: after 1460 in rbc.f/rbcmain'
 
       if (DEBUG) then   ! for node 0 only
-       print*
+       print*,''
        do 1470 j=2,17
-       do 1470 k=1
+c       do 1470 k=1
         print*, ' nodeid x  j  k     x       y'
         write(*,1471) nodeid,j,k,x(j,k),y(j,k)
 1471    format(3i5,1p2e13.5)
@@ -1019,11 +1018,11 @@ c open file for wake bc zone links
       open(150,file=filename,form='formatted',status='unknown',err=1910)
       goto 1920
 1910  continue
-      print*
+      print*,''
       print*, ' ERROR: In rbc.f/rbcmain, cannot open file =',filename
-      print*
+      print*,''
       print*, '   Program must terminate.'
-      print*
+      print*,''
       stop 'stop: in rbc.f/rbcmain, cannot open bc file for wake'
 1920  continue
       write(150,*) 'c These wake boundary conditions come in row pairs:'
@@ -1082,7 +1081,7 @@ c begin looping thru wake boundary conditions
       istep = istep + 1
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' -------------------------------------'
        print*, ' istep =',istep
        print*, ' i1, i2 =',i1,i2
@@ -1101,7 +1100,7 @@ c begin looping thru wake boundary conditions
        else
         print*, ' ERROR: wrong values for idiff_2 and/or idiff_1'
         print*, '   Program terminating'
-        print*
+        print*,''
         stop ' stop: wrong values for idiff_2 and/or idiff_1'
        endif
       endif
@@ -1250,7 +1249,7 @@ c ... base indices and increment
        jinc_b_wake(nbcreg_wake) = -1
 c move to next subgrids of either or both surfaces 1 and 2
         if (DEBUG) then
-         print*
+         print*,''
          print*, ' idiff_2 = idiff_1: ',idiff_2,idiff_1
          print*, ' jbce_1_actual, jbce_2_actual = ',
      &      jbce_1_actual, jbce_2_actual
@@ -1470,7 +1469,7 @@ c ... check if any beginning j or k values for bc's exceed end values
 92    continue
       close(99)
 
-       print*
+       print*,''
        print*,' NODE 0: All boundary conditions have been checked.'
        print*, '  ... number of regular boundary conditions: ',nbcreg
        print*, '  ... number of wall boundary conditions: ',nwall
@@ -1534,7 +1533,7 @@ c send variables
 c ... nbcreg
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nbcreg,MPI_SEND(nbcreg,)',
      &   nodeid,numprocs,nbcreg
        endif 
@@ -1547,7 +1546,7 @@ c ... nbcreg
        call MPI_RECV(nbcreg,1,MPI_INTEGER,0,nodeid,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nbcreg,MPI_SEND(nbcreg,)',
      &   nodeid,numprocs,nbcreg
        endif 
@@ -1556,7 +1555,7 @@ c ... nbcreg
 c ... boundary conditions from bcmain.dat
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_SEND(ivarbc,)',nodeid,numprocs
        endif 
        do i=2,numprocs
@@ -1571,7 +1570,7 @@ c receive boundary conditions from node 0
        call MPI_RECV(ivarbc,6*nbcreg,MPI_INTEGER,0,nodeid+1,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_RECV(ivarbc,)',nodeid,numprocs
        endif 
 c unpack variables
@@ -1588,7 +1587,7 @@ c unpack variables
 c ... nwall
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nwall,MPI_SEND(nwall,)',
      &   nodeid,numprocs,nwall
        endif 
@@ -1602,7 +1601,7 @@ c receive number of wall boundary conditions
        call MPI_RECV(nwall,1,MPI_INTEGER,0,nodeid+2,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nwall,MPI_RECV(nwall,)',
      &   nodeid,numprocs,nwall
        endif 
@@ -1611,7 +1610,7 @@ c receive number of wall boundary conditions
 c ... nwall boundary conditions
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_SEND(ivarwall,)',nodeid,numprocs
        endif 
        do i=2,numprocs
@@ -1626,7 +1625,7 @@ c receive wall boundary conditions
        call MPI_RECV(ivarwall,7*nwall,MPI_INTEGER,0,nodeid+3,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_RECV(ivarwall,)',nodeid,numprocs
        endif 
 c unpack variables
@@ -1644,7 +1643,7 @@ c unpack variables
 c ... jkbc values
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_SEND(jkbc,)',nodeid,numprocs
        endif 
        do i=2,numprocs
@@ -1657,7 +1656,7 @@ c receive jkbc values
        call MPI_RECV(jkbc,nbcreg,MPI_INTEGER,0,nodeid+4,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,MPI_RECV(jkbc,)',nodeid,numprocs
        endif 
       endif
@@ -1665,7 +1664,7 @@ c receive jkbc values
 c ... send number of wake boundary conditions
       if (nodeid.eq.0) then
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nbcreg_wake,MPI_SEND(nbcreg_wake,)',
      &   nodeid,numprocs,nbcreg_wake
        endif 
@@ -1679,7 +1678,7 @@ c ... receive number of wake boundary conditions
        call MPI_RECV(nbcreg_wake,1,MPI_INTEGER,0,nodeid+5,
      &  MPI_COMM_WORLD,stat,ierr)
        if (DEBUG2) then
-        print*
+        print*,''
         print*, 'nodeid,numprocs,nbcreg_wake,MPI_RECV(nbcreg_wake,)',
      &   nodeid,numprocs,nbcreg_wake
        endif 
@@ -1700,7 +1699,7 @@ c receive wake bcs
         call MPI_RECV(ivarbc_wake,8*nbcreg_wake,MPI_INTEGER,0,
      &   nodeid+6,MPI_COMM_WORLD,stat,ierr)
         if (DEBUG2) then
-         print*
+         print*,''
          print*, 'nodeid,numprocs,MPI_RECV(ivarbc_wake,)',nodeid,numprocs
         endif 
 c unpack variables
@@ -1723,7 +1722,7 @@ c unpack variables
       endif
 
       if (DEBUG2) then
-       print*
+       print*,''
        print*, 'After deallocating ivarbc,ivarwall:'
        print*, ' nodeid,nbcreg_wake,numprocs =',
      &   nodeid, nbcreg_wake, numprocs
@@ -1841,7 +1840,7 @@ c ... j=constant
 c ... k=constant
         numpointswall = jwall2(nw) - jwall1(nw) + 1
        endif
-       print*
+       print*,''
        print*, ' nw  npw        xwallv         ywallv'
        do 5500 npw=1,numpointswall
         write(*,5510) nw,npw,xwallv(npw,nw),ywallv(npw,nw)
@@ -2000,7 +1999,7 @@ c-----
       close(51)
 
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' TARGET POINTS:'
        print*, ' nreg = ',nreg
        print*, '        #          nzt         jbt         jet          
@@ -2008,19 +2007,19 @@ c-----
        do nrt=1,nreg
         print*,nrt,nzt(nrt),jbt(nrt),jet(nrt),kbt(nrt),ket(nrt)
        enddo
-       print*
+       print*,''
        print*, ' BASE POINTS:'
        print*, '        #          nzb         jbb         jeb          
      1kbb          keb'
        do nrb=1,nreg
         print*,nrb,nzb(nrb),jbb(nrb),jeb(nrb),kbb(nrb),keb(nrb)
        enddo
-       print*
+       print*,''
       endif
 
 
 c check if any target bc's are listed more than once
-      print*
+      print*,''
       print*, ' File bcpzn.dat -- Checking if target bcs are listed more 
      1 than once' 
       ierrflagi1 = 0
@@ -2046,7 +2045,7 @@ c check if any target bc's are listed more than once
        enddo
 
 c check if any donor bc's are listed more than once
-      print*
+      print*,''
       print*, ' File bcpzn.dat -- Checking if donor bcs are listed more 
      1than once'
       ierrflag2 = 0
@@ -2074,7 +2073,7 @@ c check if any donor bc's are listed more than once
 c ... check all endpoints for multiple bcs 
 
 c ... for kbt = ket (constant k) 
-        print*
+        print*,''
         print*, ' File bcpzn.dat -- Checking j endpoints, k=constant'
         ierrflag3 = 0
 
@@ -2123,7 +2122,7 @@ c ...   now look thru target data for identical points that get updated
 950   continue
 
 c ... for jbt = jet (constant j)
-      print*
+      print*,''
       print*, ' File bcpzn.dat -- Checking k endpoints, j=constant'
       ierrflag4 = 0
 
@@ -2171,7 +2170,7 @@ c ...   now look thru target data for identical points that get updated
 
 951   continue
 
-      print*
+      print*,''
       print*, ' Summary for boundary condition checks, file bcpzn.dat:'
       print*, '   (for info only; none of these should be harmful)'
       if (ierrflag1.eq.0) then
@@ -2194,12 +2193,12 @@ c ...   now look thru target data for identical points that get updated
       else
        print*, '   >> multiply-defined bcs for constant j:',ierrflag4
       endif
-      print*
+      print*,''
 
       if (ierrflag1.ne.0.or.ierrflag2.ne.0.or.
      1 ierrflag3.ne.0.or.ierrflag4.ne.0) then
       if (DEBUG) then
-       print*
+       print*,''
        print*, ' ERRORS detected in file bcpzn.dat'
       endif
 c       print*, '  stop: stopping execution'
@@ -2269,7 +2268,7 @@ c ... check for negative indices
 91     continue
 
        if (ierrflag.gt.0) then
-        print*
+        print*,''
         print*, ' stop: negative indices -- stopping in rbc.f/rbcpzn'
         stop ' stop: negative indices -- stopping in rbc.f/rbcpzn'
        endif 

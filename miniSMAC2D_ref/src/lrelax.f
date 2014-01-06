@@ -75,14 +75,14 @@ c-----
 9     continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, 'DWB10.5: BEFORE call to btlu3j'
        print*, 'DWB10.5: jmax,kmax,dq(2,1,1) = ',jmax,kmax,dq(2,1,1)
        print*, 'DWB10.5: btc(2,2,2,2) =',btc(2,2,2,2)
 c       print*, 'DWB10.5: bjm(2,2,2,2), btc(2,2,2,2), bjp(2,2,2,2) = ',
 c     &  bjm(2,2,2,2),btc(2,2,2,2),bjp(2,2,2,2)
        print*, 'DWB10.5: btc(2,2,1,1) = ',btc(2,2,1,1)
-       print*
+       print*,''
 c       stop 'stop: in miniSMAC lrelax.f/lrelax 10'
       endif 
 
@@ -224,8 +224,10 @@ c****************************************************************
      &     bjp(jmax,kmax,3,3), bkm(jmax,kmax,3,3),
      &     bkp(jmax,kmax,3,3), dq(jmax,kmax,3),
      &       s(jmax,kmax,3)
-      common/btri/a(jkmax,3,3),b(jkmax,3,3),c(jkmax,3,3),rhs(jkmax,3),
+      dimension a(jkmax,3,3),b(jkmax,3,3),c(jkmax,3,3),rhs(jkmax,3),
      &            d(jkmax,3,3),e(jkmax,3,3)
+      common/btri/a,b,c,rhs,
+     &            d,e
       double precision, parameter :: half=0.5
       logical DEBUG
 
@@ -243,10 +245,10 @@ c sweep in -k direction
          ki = -1
          if (DEBUG) then
           if (nz-1.eq.8) then
-            print*
+            print*,''
             print*, ' DWB99: In lrelax.f/ljsweep: node,nj,kb,ke,ki = ',
      &        nz-1,nj,kb,ke,ki
-            print*
+            print*,''
           endif
          endif
       else
@@ -256,10 +258,10 @@ c sweep in +k direction
          ki = 1
          if (DEBUG) then
           if (nz-1.eq.8) then
-            print*
+            print*,''
             print*, ' DWB98: In lrelax.f/ljsweep: node,nj,kb,ke,ki = ',
      &        nz-1,nj,kb,ke,ki
-            print*
+            print*,''
           endif
          endif
       endif
@@ -276,7 +278,7 @@ c NOTE: 'sign(a,b)' returns the value of 'a' with the sign of 'b'
          swkp = half + sign(half, rkp)
 
       if (DEBUG.and.nodeid.eq.0.and.k.le.10) then
-       print* 
+       print*,'' 
        print*, 'nodeid  j   k     rhs_j1      rhs_j2      rhs_j3'
       endif
 c sweep over j
@@ -327,7 +329,7 @@ c           endif
 12       continue
 
       if (DEBUG.and.nodeid.eq.0.and.k.le.2) then
-       print*
+       print*,''
        print*, ' After do 12 loop in lrelax.f/ljsweep'
        print*, ' k = ',k
        print*, ' j  k    s(j,k,1)        s(j,k,2)       s(j,k,3)'
@@ -336,7 +338,7 @@ c           endif
 962     format(2i3,1p3e15.7)
 961    continue
        if (k.eq.2) then
-        print*
+        print*,''
 c        print*, ' stop: after do 12 loop in lrelax.f/ljsweep'
 c        stop 'stop: after do 12 loop in lrelax.f/ljsweep'
        endif
@@ -349,7 +351,7 @@ c       stop 'stop: before do 15 loop in lrelax.f'
       endif
 
       if (DEBUG.and.nodeid.eq.0.and.k.le.10) then
-       print*
+       print*,''
        print*, ' j   k   m     ajm3       bjm3      cjm3'
        print*, ' jbeg,jend = ',jbeg,jend
       endif
@@ -407,7 +409,7 @@ c
 120      continue
 
       if (DEBUG.and.nodeid.eq.0.and.k.le.2) then
-       print*
+       print*,''
        print*, 'Forward sweep in lrelax.f/ljsweep'
        print*, '  jbeg,jend = ',jbeg,jend
        print*, '  k = ',k
@@ -425,7 +427,7 @@ c-----
 c  Backward substitution
 c-----
       if (DEBUG.and.nodeid.eq.0.and.k.le.2) then
-       print*
+       print*,''
        print*, ' j  k  n  rhs_jn'
       endif
 
@@ -447,7 +449,7 @@ c       stop 'stop: after do 140 in lrelax.f/ljsweep'
 
 c
 c      if (nodeid.eq.8) then
-c       print*
+c       print*,''
 c       print*, 'DWB12: dq(2,1,1) = ',dq(2,1,1)
 c       print*, 'DWB12: dq(10,1,2) = ',dq(10,1,2)
 c       print*, 'DWB12: rhs(2,1) = ',rhs(2,1)
@@ -462,7 +464,7 @@ c
 10       continue
 
       if (DEBUG.and.nodeid.eq.0.and.k.le.2) then
-       print*
+       print*,''
        print*, ' After do 10 loop in lrelax.f/ljsweep'
        print*, 'underr = ',underr
        print*, ' nodeid = ',nodeid
@@ -478,7 +480,7 @@ c       stop 'stop: after do 10 loop in lrelax.f/ljsweep'
 20    continue
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' nodeid  j   k   dq(jk1)     dq(jk2)      dq(jk3)'
        if (kmax.gt.10) then
         kmaxx = 10
@@ -518,8 +520,10 @@ c****************************************************************
      &     bjp(jmax,kmax,3,3), bkm(jmax,kmax,3,3),
      &     bkp(jmax,kmax,3,3), dq(jmax,kmax,3),
      &       s(jmax,kmax,3)
-      common/btri/a(jkmax,3,3),b(jkmax,3,3),c(jkmax,3,3),rhs(jkmax,3),
+      dimension a(jkmax,3,3),b(jkmax,3,3),c(jkmax,3,3),rhs(jkmax,3),
      &            d(jkmax,3,3),e(jkmax,3,3)
+      common/btri/a,b,c,rhs,
+     &            d,e
       double precision, parameter :: half=0.5
       logical DEBUG
 
@@ -567,7 +571,7 @@ c-----
 26       continue
 c
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' m  k     akm1       bkm1       ckm1'
       endif
          do 35 m=1,3
@@ -594,7 +598,7 @@ c  Inlining of btso3k
 c
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
 c       print*,'nt node  k    b(k11)    b(k12)   b(k13)     b(k21)    b(k22)
 c     &     b(k23)    b(k31)    b(k32)    b(k33)'   
 c       print*,'nt  node  k    rhs(k1)    rhs(k2)   rhs(k3)'

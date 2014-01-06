@@ -184,9 +184,9 @@ c zero viscous forces
       fys = 0.
 
       if (DEBUG) then
-       print*
+       print*,''
        print*,' >> In fmk: nodeid,jbeg,jend = ',nodeid,jbeg,jend
-       print*
+       print*,''
       endif
 
       do 10 j=jbeg,jend-1

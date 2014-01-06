@@ -77,10 +77,10 @@ c      DEBUG1 = .true.
  
       if (DEBUG1) then
        if (nodeid.eq.0) then
-        print*
+        print*,''
         print*,' Entering visc.f/viscterms'
         print*, ' s = ',s
-        print*
+        print*,''
        endif
        call MPI_BARRIER(MPI_COMM_WORLD,ierr)
 c       stop 'stop: entering visc.f/viscterms'
@@ -133,7 +133,7 @@ c
             vf(j,8) = djv*( xix*etay )
 c            if (k.eq.2.and.nodeid.eq.4.and.j.eq.8) then
             if (DEBUG.and.nodeid.eq.0) then
-              print*
+              print*,''
               print*,' DELETE30: j,k,djave,vnuave = ',
      &  j,k,djave,vnuave
               print*,' uxi,vxi,ueta,veta(j) = ',
@@ -148,7 +148,7 @@ c            if (k.eq.2.and.nodeid.eq.4.and.j.eq.8) then
 
         if (DEBUG1) then
          if (nodeid.eq.0) then
-          print*
+          print*,''
           print*, '===== before do 80 ======='
           print*,' s = ',s
          endif
@@ -180,7 +180,7 @@ c            print*, 'DWB j,k,s3 = ',j,k,s(j,k,3)
 c            print*, ' ... s(j,k,3) = ',s(j,k,3)
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
 c       print*, '-- in visc4, for j,k = ',j,k
        print*,'DELETE50: j,k,btc(j,k,2,2) = ',
      &  j,k,btc(j,k,2,2)
@@ -244,7 +244,7 @@ c-----
      &                           + vf(k,8)*ueta(k) - vf(k-1,8)*ueta(k-1)
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
 c       print*, ' DELETE60: j,k,btc(j,k,2,2) = ',j,k,btc(j,k,2,2)
        print*, ' DELETE60: j,k,s(j,k,2) = ',j,k,s(j,k,2)
       endif
@@ -327,9 +327,9 @@ c
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, '>>> Node 0 - MODULE: visc.f, SUB: turvis'
-        print*
+        print*,''
        call MPI_BARRIER(MPI_COMM_WORLD,ierr)
       endif
 
@@ -353,7 +353,7 @@ c-----
       if (DEBUG) then
        call MPI_BARRIER(MPI_COMM_WORLD,ierr)
        if (nodeid.eq.0) then
-        print*
+        print*,''
         print*,' Node 0: All nodes reached end of visc.f/turvis, 200'
        endif
 c      call MPI_FINALIZE(ierr)

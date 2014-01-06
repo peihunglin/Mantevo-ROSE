@@ -81,14 +81,14 @@ c        rhs(j,k,i) = 0.0
 c9     continue
 
       if (DEBUG.and.nodeid.eq.0.and.neqs.eq.3) then
-      print*
+      print*,''
       print*, ' btc before lusini3: nodeid,neqs = ',nodeid,neqs
       k=2
       do 800 j=1,jmax
       print*,' DELETE14.1: j,k,btc(j,2,2,2),dq(j,2,2) = ',
      & j,k,btc(j,k,2,2),dq(j,2,2)
 800   continue
-      print*
+      print*,''
       endif
 
       if (DEBUG.and.neqs.eq.3) then
@@ -106,16 +106,16 @@ c-----
       elseif(neqs .eq. 1) then
             call lusini1(jmax,kmax,btc,scr1)
       else
-        print*
+        print*,''
         print*, ' ERROR: neqs value should be 1 or 3'
         print*, '    neqs = ',neqs
         print*, ' stopping'
-        print*
+        print*,''
         stop ' stopping: neqs value should be 1 or 3'
       endif
 
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*, ' DELETE8.1: nodeid,neqs,q,dq(2,2,1),btc(2,2,1,1) = ',
      &  nodeid,neqs,q(2,2,1),dq(2,2,1),btc(2,2,1,1)
       endif
@@ -140,7 +140,7 @@ c NOTE: this is where dq(j,k,n) are calculated
       endif
 
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*, ' DELETE8.2: nodeid,neqs,q,dq(2,2,1),btc(2,2,1,1) = ',
      &  nodeid,neqs,q(2,2,1),dq(2,2,1),btc(2,2,1,1)
       endif
@@ -167,7 +167,7 @@ c      stop 'stop: stopping after bcimpds'
       endif
 
       if (DEBUG.and.nodeid.eq.4.and.neqs.eq.3) then
-       print*
+       print*,''
        print*, ' DELETE8.3: nodeid, q,dq(2,2,2),rhs(2,2,2) = ',
      &  nodeid,q(2,2,2),dq(2,2,2),rhs(2,2,2)
        call flush(istdout)

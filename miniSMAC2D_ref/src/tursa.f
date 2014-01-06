@@ -98,9 +98,9 @@ c
 c      DEBUG = .true.
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, '>>> MODULE: tursa.f, SUB: tursa'
-       print*
+       print*,''
       endif
 
 c-----
@@ -152,12 +152,12 @@ c-----
       if (DEBUG) then
         call MPI_BARRIER(MPI_COMM_WORLD,ierr)
         if (nodeid.eq.0) then
-          print*
+          print*,''
           print*, '>>> Node 0 - before tsafill in tursa.f/tursa' 
-          print*
+          print*,''
         endif
         if (nodeid.eq.4) then
-          print*
+          print*,''
           print*, ' STC VALUES'
           do 133 k=1,kmax
           do 133 j=1,jmax
@@ -183,14 +183,14 @@ c add identity matrix to lhs
       if (DEBUG) then
         call MPI_BARRIER(MPI_COMM_WORLD,ierr)
         if (nodeid.eq.0) then
-          print*
+          print*,''
           print*, '>>> Node 0 - before tsabc in tursa.f/tursa' 
-          print*
+          print*,''
         endif
         call flush(6)
         call flush(istdout)
         if (nodeid.eq.4) then
-          print*
+          print*,''
           print*, ' STC VALUES'
           do 233 k=1,kmax
           do 233 j=1,jmax
@@ -213,13 +213,13 @@ c-----
       if (DEBUG) then
         call MPI_BARRIER(MPI_COMM_WORLD,ierr)
         if (nodeid.eq.0) then
-          print*
+          print*,''
           print*, '>>> Node 0 - before lreltur in tursa.f/tursa' 
-          print*
+          print*,''
         endif
         call flush(6)
         if (nodeid.eq.4) then
-          print*
+          print*,''
           print*, ' STC VALUES'
           do 333 k=1,kmax
           do 333 j=1,jmax
@@ -256,9 +256,9 @@ c-----
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, '>>> Node 0 - before tsaupd in tursa.f/tursa' 
-        print*
+        print*,''
 c        stop ' stop: stopping in tursa.f/tursa'
       endif
 
@@ -269,9 +269,9 @@ c-----
          call tsaupd(jmax,kmax,anut(1,1),ds(1,1),1)
 
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, '>>> Node 0 - before eddy visc in tursa.f/tursa' 
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping in tursa.f/tursa'
       endif
@@ -287,7 +287,7 @@ c-----
 200   continue
 
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*,' All nodes have reached end of tursa.f/tursa, 200'
 c       stop 'stopping in sub tursa.f/tursa, 200'
       endif 
@@ -397,7 +397,7 @@ c        endif
 30    continue
       
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        print*, ' j    k      smin(j,k)'
        do 50 j=1,jmax
        do 50 k=1,kmax
@@ -527,7 +527,7 @@ c-----
 c-----
 
       if (DEBUG.and.nodeid.eq.0) then
-       print*
+       print*,''
        call flush(6)
        call flush(istdout)
 c       stop 'stop: after S-A turb model output in tursa.f/tsafill'
@@ -538,9 +538,9 @@ c
 c  Compute the vorticity magnitude.
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before vortsa in tursa.f/tsafill'
-        print*
+        print*,''
 c DWB: stop
 c        stop ' stop: stopping before vortsa in tursa.f/tsafill'
       endif
@@ -552,9 +552,9 @@ c-----
 c  Compute curvature terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before curvature in tursa.f/tsafill'
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping before curvature in tursa.f/tsafill'
       endif
@@ -570,9 +570,9 @@ c-----
 c  f_eta_eta viscous terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before f_eta_eta in tursa.f/tsafill'
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping before f_eta_eta terms in tursa.f/tsafill'
       endif
@@ -629,7 +629,7 @@ c
 180       continue
 
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, '2 tursa.f/tsafill'
         print*, '   j    k    stc(j,k)'
        do 999 j=2,jmax-1
@@ -650,9 +650,9 @@ c-----
 c  Advective terms in eta
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before advect in tursa.f/tsafill'
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping before advect terms in tursa.f/tsafill'
       endif
@@ -690,9 +690,9 @@ c-----
 c   e_xi_xi viscous terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before e_xi_xi in tursa.f/tsafill'
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping before e_xi_xi terms in tursa.f/tsafill'
       endif
@@ -751,9 +751,9 @@ c-----
 c  Advective terms in xi
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before xi adv terms in tursa.f/tsafill'
-        print*
+        print*,''
         call flush(6)
 c        stop ' stop: stopping before xi adv terms in tursa.f/tsafill'
       endif
@@ -794,10 +794,10 @@ c-----
 c  Production and destruction terms
 c-----
       if (DEBUG.and.nodeid.eq.0) then
-        print*
+        print*,''
         print*, ' >>> Node 0 - before prod terms in tursa.f/tsafill'
         print*, ' itrans = ',itrans
-        print*
+        print*,''
         call flush(6)
 c        call MPI_FINALIZE(ierr)
 c        stop ' stop: stopping before prod terms in tursa.f/tsafill'
@@ -813,7 +813,7 @@ c         do 260 k=kend2,kendm
          do 260 k=2,kmax-1
          do 260 j=2,jmax-1
           if (DEBUG) then
-           print*
+           print*,''
            print*, ' in tursa.f/tsafill: j,k,epss,smin(j,k) =',
      &      j,k,epss,smin(j,k)
           endif
@@ -842,7 +842,7 @@ c
             gg = rr + cw2*(rr**6 - rr)
 c      if (DEBUG.and.nodeid.eq.4) then
 c      if (DEBUG) then
-c       print*
+c       print*,''
 c       print*, 'In tsafill #1: nodeid,rr,cw2,gg,j,k,anut_jk = ',
 c     &   nodeid,rr,cw2,gg,j,k,anut(j,k)
 c       if (gg.gt.300007.) print*, ' DANGER: gg = ',gg 
@@ -901,7 +901,7 @@ c       stop 'stop: after second print of stc'
 260      continue
  
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
 c       print*, 'stop: in tursa.f/tsafill #2 ins'
        call flush(6)
        call flush(istdout)
@@ -917,9 +917,9 @@ c       stop 'stop: after 260 continue'
       endif
 
       if (DEBUG.and.nodeid.eq.0) then
-c        print*
+c        print*,''
 c        print*, ' >>> Node 0 - end tursa.f/tsafill'
-c        print*
+c        print*,''
 c        call flush(6)
 c        call MPI_FINALIZE(ierr)
 c        stop ' stop: stopping end  tursa.f/tsafill'
@@ -1188,7 +1188,7 @@ c-----
      &        .or. ibcval(nr) .eq. 32 .or. ibcval(nr) .eq. 33
      &        .or. ibcval(nr) .eq. 40) then
                if (DEBUG) then
-                print*
+                print*,''
                 write(*,50) ibcval(nr),nz
 50    format(/'Applying turb bc # ',i3,' for zone ',i4)
                endif
@@ -1290,7 +1290,7 @@ c-----
 
 c      if (DEBUG.and.nodeid.eq.0) then
       if (DEBUG.and.nodeid.eq.4) then
-       print*
+       print*,''
        print*, ' nodeid  j   k    smin(j,k)     anut(j,k)'
        do 200 k=1,kmax
        do 200 j=1,jmax

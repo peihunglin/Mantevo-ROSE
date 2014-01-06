@@ -23,3 +23,4 @@ The original Mantevo includes:
 3. HPCCG (with modified Makefile)
 4. MiniMD (with modified Makefile, types.h)
    Using _Pragma() to define pragma inside define macro
+5. MiniSMAC2D (miwht modified Makefile, Fortran I/O)

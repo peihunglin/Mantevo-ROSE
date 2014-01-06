@@ -45,8 +45,10 @@ c only one zone per processor, so nzne = 1
       parameter(nzne=1,ibcmax=500,jkmax=150,nwallmax=20)
       common/original/jmax_o,kmax_o
       common/airfr/alpha,clift,cdrag,cmom
-      common/dflx/dfp(jkmax,3), dfm(jkmax,3)
-      common/flxs/f(jkmax,3),fv(jkmax,3)
+      dimension dfp(jkmax,3), dfm(jkmax,3)
+      dimension f(jkmax,3),fv(jkmax,3)
+      common/dflx/dfp, dfm
+      common/flxs/f,fv
       common/iparmi/nt,niter,ntmax,ntime,iflxo,ivis,iturb
       common/iparmr/cdis,epscon
       common/impli/impsch,njsp,nksp,nbcimp,ntjsp,ntksp
@@ -58,23 +60,43 @@ c only one zone per processor, so nzne = 1
       common/timecpu/cputime,cputiter,cpuitpt
       common/timm/beta,dtau,dt,time
       common/visc/reynum,vnu
-      common/bcsurf/nbcreg, ibcval(ibcmax), nzbc(ibcmax), jkbc(ibcmax),
+      dimension ibcval(ibcmax), nzbc(ibcmax), jkbc(ibcmax),
      & jbcb(ibcmax), jbce(ibcmax),
      & kbcb(ibcmax), kbce(ibcmax),
-     & nwall, nzwall(ibcmax),
+     & nzwall(ibcmax),
      & jkwall(ibcmax), jkinc(ibcmax),
      & jwall1(ibcmax), jwall2(ibcmax),
      & kwall1(ibcmax), kwall2(ibcmax),
      & xwallval(jkmax),ywallval(jkmax),
      & xwallv(jkmax,nwallmax),ywallv(jkmax,nwallmax)
-      common/bcwake/nbcreg_wake,nzbc_t_wake(ibcmax),nzbc_b_wake(ibcmax),
+      common/bcsurf/nbcreg, ibcval, nzbc, jkbc,
+     & jbcb, jbce,
+     & kbcb, kbce,
+     & nwall, nzwall,
+     & jkwall, jkinc,
+     & jwall1, jwall2,
+     & kwall1, kwall2,
+     & xwallval,ywallval,
+     & xwallv,ywallv
+      dimension nzbc_t_wake(ibcmax),nzbc_b_wake(ibcmax),
      & jbcb_t_wake(ibcmax),jbce_t_wake(ibcmax),jinc_t_wake(ibcmax),
      & jbcb_b_wake(ibcmax),jbce_b_wake(ibcmax),jinc_b_wake(ibcmax)
-      common/pzne/nreg, nzt(ibcmax), nzb(ibcmax),
+      common/bcwake/nbcreg_wake,nzbc_t_wake,nzbc_b_wake,
+     & jbcb_t_wake,jbce_t_wake,jinc_t_wake,
+     & jbcb_b_wake,jbce_b_wake,jinc_b_wake
+      dimension nzt(ibcmax), nzb(ibcmax),
      & jbt(ibcmax), jet(ibcmax), jit(ibcmax),
      & kbt(ibcmax), ket(ibcmax), kit(ibcmax),
      & jbb(ibcmax), jeb(ibcmax), jib(ibcmax),
      & kbb(ibcmax), keb(ibcmax), kib(ibcmax)
+      common/pzne/nreg, nzt, nzb,
+     & jbt, jet, jit,
+     & kbt, ket, kit,
+     & jbb, jeb, jib,
+     & kbb, keb, kib
+      dimension nzint, nintrp,
+     & iintbeg, iintend,
+     & iint
       common/intpi/nintreg, nzint(ibcmax), nintrp(ibcmax),
      & iintbeg(ibcmax), iintend(ibcmax),
      & iint(ibcmax,6)

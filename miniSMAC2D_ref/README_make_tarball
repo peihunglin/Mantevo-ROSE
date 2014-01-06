@@ -1,0 +1,9 @@
+In this directory, type
+
+tar cvf smac2d.tar COPYRIGHT Flowchart/*.pdf README include/*.h include/*.f src/Makefile src/*.f input/*.*inal input/*.in
+
+Before running the code, move all files in the 'input' directory into
+the src directory.
+
+To create the executable, go to the 'src' directory and type 'make'.
+

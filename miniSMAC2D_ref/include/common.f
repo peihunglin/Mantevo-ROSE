@@ -94,12 +94,12 @@ c only one zone per processor, so nzne = 1
      & kbt, ket, kit,
      & jbb, jeb, jib,
      & kbb, keb, kib
-      dimension nzint, nintrp,
-     & iintbeg, iintend,
-     & iint
-      common/intpi/nintreg, nzint(ibcmax), nintrp(ibcmax),
+      dimension nzint(ibcmax), nintrp(ibcmax),
      & iintbeg(ibcmax), iintend(ibcmax),
      & iint(ibcmax,6)
+      common/intpi/nintreg, nzint, nintrp,
+     & iintbeg, iintend,
+     & iint
       common/unitno/istdout
       common/yaml/title,geometry
       character*60 title,geometry

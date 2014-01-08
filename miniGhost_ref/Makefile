@@ -36,7 +36,7 @@
 PROTOCOL = -D_MG_MPI
 
 # Option: Select a compiler - pgi, gnu, intel, cray
-COMPILER_SUITE=pgi
+COMPILER_SUITE=rose
 
 # Option: Select checkpoint methods to include
 ### Compile to include MPI-IO checkpointing capability.
@@ -50,9 +50,7 @@ H5PART_PATH=/home/thkorde/projects/mantevo/install/$(COMPILER_SUITE)
 
 # Compilers
 #FC=mpif90
-FC=ftn
 #CC=mpicc
-CC=cc
 
 CFLAGS = $(PROTOCOL)
 # C main calling Fortran subroutine:
@@ -155,12 +153,33 @@ H5PART_LIBS+=-L$(H5PART_PATH)/lib -lH5PartModules
 endif
 ################################################################################
 
+################################################################################
+## Setup option specific to the ROSE compiler
+################################################################################
+ifeq ($(COMPILER_SUITE),rose)
+
+# Compilers
+FC=/home/lin32/Development/projects/rose/master/install/bin/identityTranslator
+CC=/home/lin32/Development/projects/rose/master/install/bin/identityTranslator
+# Optimization
+OPT_F = -O3 -I/home/lin32/Development/opt/OpenMPI/include -pthread -L/home/lin32/Development/opt/OpenMPI/lib -lmpi_usempi -lmpi_mpifh -lmpi
+
+CFLAGS += -lpthread -L/home/lin32/Development/opt/OpenMPI/lib -lmpi -I/home/lin32/Development/opt/OpenMPI/include -lgfortran -lmpi_mpifh -lmpi_usempi 
+FFLAGS += $(OPT_F)
+# Free-form Fortran source code:
+FFLAGS += -ffree-form -ffree-line-length-none
+# Array bounds checking: (expensive!)
+#FFLAGS += -fbounds-check
+
+endif
+################################################################################
+
+include make_targets
 F_INCLUDE=$(H5PART_INCLUDES)
 
 LD=$(CC)
 LDFLAGS=$(CFLAGS)
 LIBS=$(H5PART_LIBS)
 
-include make_targets
 
 # End makefile

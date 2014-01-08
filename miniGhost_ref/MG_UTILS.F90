@@ -630,7 +630,7 @@ CONTAINS
    DOUBLE PRECISION FUNCTION MG_TIMER ()
 
 #if defined _MG_MPI
-      include 'mpif.h'
+!      include 'mpif.h'
 
       MG_TIMER = MPI_WTIME ()
 

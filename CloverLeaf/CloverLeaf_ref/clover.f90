@@ -33,9 +33,10 @@ MODULE clover_module
 
   USE data_module
   USE definitions_module
-  USE MPI
+!  USE MPI  
 
   IMPLICIT NONE
+  include 'mpif.h'
 
 CONTAINS
 
